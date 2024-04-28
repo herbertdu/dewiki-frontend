@@ -4,13 +4,13 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import { Theme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import MarkNav from 'markdown-navbar';
-import remarkGfm from 'remark-gfm'; // 划线、表、任务列表和直接url等的语法扩展
-import rehypeRaw from 'rehype-raw'; // 解析标签，支持html语法
-import 'github-markdown-css'; //代码块的背景和表格线条等样式
-import './navbar.css'; //引入修改后的目录格式
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import 'github-markdown-css';
+import './navbar.css';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,37 +35,44 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 ) as () => Record<'main' | 'drawer' | 'paper', string>;
 
-const Document = ({ articleId, lang }: { articleId: number; lang: string }) => {
+const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     const classes = useStyles();
     console.log(articleId);
     console.log(lang);
 
-    const [content, setContent] = React.useState('');
+    const [content, setContent] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+    const [title, setTitle] = useState('');
     useEffect(() => {
         const fetchArticle = async () => {
             let article = await getArticle(articleId, lang);
             setContent(article.content);
-            document.title = article.name;
+            setTitle(article.name);
+            document.title = `${article.name} | DeWiki`;
+            setIsLoading(false);
         };
 
         fetchArticle();
     }, [articleId, lang]);
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div>
-            
             <Drawer className={classes.drawer} variant={'permanent'} classes={{ paper: classes.paper }}>
                 <Box>
                     <MarkNav
                         className="article"
                         source={content}
-                        headingTopOffset={1} //离顶部的距离
+                        headingTopOffset={40} //离顶部的距离
                         ordered={false} //是否显示标题题号1,2等
                     />
                 </Box>
             </Drawer>
             <main className={classes.main}>
-                <h1 className="text-center font-bold text-5xl mb-10 capitalize">{document.title}</h1>
+                <h1 className="text-center font-bold text-5xl mb-10 capitalize">{title}</h1>
                 <Grid container justifyContent="center" alignItems="center">
                     <Box width={'70%'}>
                         <ReactMarkdown
@@ -82,4 +89,4 @@ const Document = ({ articleId, lang }: { articleId: number; lang: string }) => {
     );
 };
 
-export default Document;
+export default Article;
