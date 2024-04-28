@@ -1,0 +1,10 @@
+{
+    "404: Page Not Found": {
+        "en": "404: Page Not Found",
+        "jp": "ページが見つかりません",
+        "zh": "404: 页面未找到",
+        "$files": [
+            "pages/NotFound.tsx"
+        ]
+    }
+}
