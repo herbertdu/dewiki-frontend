@@ -1,19 +1,23 @@
-import { getArticle } from '../utils/article';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import ReactMarkdown from 'react-markdown';
 import { Theme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
-import { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
 import MarkNav from 'markdown-navbar';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import NotFound from '../pages/NotFound';
+
+import { getArticle } from '../utils/article';
+
 import 'github-markdown-css';
 import './navbar.css';
-import { useParams } from 'react-router-dom';
-import NotFound from '../pages/NotFound';
-import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,6 +26,9 @@ const useStyles = makeStyles((theme: Theme) =>
             // padding: theme.spacing(4),
             // paddingBottom: theme.spacing(3),
             // paddingTop: theme.spacing(12),
+            padding: 4,
+            paddingBottom: 3,
+            paddingTop: 12,
             minHeight: 'calc(100% - 120px)',
         },
         drawer: {
@@ -40,12 +47,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     const classes = useStyles();
-    console.log(articleId);
-    console.log(lang);
-
     const [content, setContent] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [title, setTitle] = useState('');
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
     useEffect(() => {
         const fetchArticle = async () => {
             let article = await getArticle(articleId, lang);
@@ -64,13 +78,33 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
 
     return (
         <div>
-            <Drawer className={classes.drawer} variant={'permanent'} classes={{ paper: classes.paper }}>
+            <IconButton
+                color="inherit"
+                aria-label={open ? 'close drawer' : 'open drawer'}
+                edge="start"
+                onClick={open ? handleDrawerClose : handleDrawerOpen}
+            >
+                <MenuIcon />
+            </IconButton>
+            <Drawer
+                className={classes.drawer}
+                variant={open ? 'permanent' : 'temporary'}
+                classes={{ paper: classes.paper }}
+            >
+                <IconButton
+                    color="inherit"
+                    aria-label={open ? 'close drawer' : 'open drawer'}
+                    edge="start"
+                    onClick={open ? handleDrawerClose : handleDrawerOpen}
+                >
+                    <CloseIcon />
+                </IconButton>
                 <Box>
                     <MarkNav
                         className="article"
                         source={content}
-                        headingTopOffset={40} //离顶部的距离
-                        ordered={false} //是否显示标题题号1,2等
+                        headingTopOffset={40} //The distance from the top
+                        ordered={false} //Does it display the title numbers 1, 2, etc.?
                     />
                 </Box>
             </Drawer>
@@ -95,6 +129,9 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
 export function ArticleWithParams() {
     let { id } = useParams();
     if (!id) {
+        return <NotFound />;
+    }
+    if (!/^\d+$/.test(id)) {
         return <NotFound />;
     }
     let articleId = parseInt(id);
