@@ -16,6 +16,7 @@ import NotFound from '../pages/NotFound';
 
 import { getArticle } from '../utils/article';
 
+import { Affix } from 'antd';
 import 'github-markdown-css';
 import './navbar.css';
 
@@ -78,36 +79,38 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
 
     return (
         <div>
-            <IconButton
-                color="inherit"
-                aria-label={open ? 'close drawer' : 'open drawer'}
-                edge="start"
-                onClick={open ? handleDrawerClose : handleDrawerOpen}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Drawer
-                className={classes.drawer}
-                variant={open ? 'permanent' : 'temporary'}
-                classes={{ paper: classes.paper }}
-            >
+            <Affix offsetTop={5}>
                 <IconButton
                     color="inherit"
                     aria-label={open ? 'close drawer' : 'open drawer'}
                     edge="start"
                     onClick={open ? handleDrawerClose : handleDrawerOpen}
                 >
-                    <CloseIcon />
+                    <MenuIcon />
                 </IconButton>
-                <Box>
-                    <MarkNav
-                        className="article"
-                        source={content}
-                        headingTopOffset={40} //The distance from the top
-                        ordered={false} //Does it display the title numbers 1, 2, etc.?
-                    />
-                </Box>
-            </Drawer>
+                <Drawer
+                    className={classes.drawer}
+                    variant={open ? 'permanent' : 'temporary'}
+                    classes={{ paper: classes.paper }}
+                >
+                    <IconButton
+                        color="inherit"
+                        aria-label={open ? 'close drawer' : 'open drawer'}
+                        edge="start"
+                        onClick={open ? handleDrawerClose : handleDrawerOpen}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                    <Box>
+                        <MarkNav
+                            className="article"
+                            source={content}
+                            headingTopOffset={40} //The distance from the top
+                            ordered={false} //Does it display the title numbers 1, 2, etc.?
+                        />
+                    </Box>
+                </Drawer>
+            </Affix>
             <main className={classes.main}>
                 <h1 className="text-center font-bold text-5xl mb-10 capitalize">{title}</h1>
                 <Grid container justifyContent="center" alignItems="center">
