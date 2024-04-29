@@ -1,4 +1,4 @@
-import { HashRouter, Routes, Route, useParams } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import { ArticleWithParams } from './components/Article';
@@ -8,6 +8,7 @@ import { VoerkaI18nProvider } from '@voerkai18n/react';
 import React from 'react';
 
 function App() {
+    console.log(`App ${window.location.pathname}`)
     return (
         <VoerkaI18nProvider fallback={<div>Loading the language pack...</div>} scope={i18nScope}>
             <HashRouter>
@@ -20,7 +21,5 @@ function App() {
         </VoerkaI18nProvider>
     );
 }
-
-
 
 export default App;

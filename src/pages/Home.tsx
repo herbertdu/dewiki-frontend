@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { dryrun } from '@permaweb/aoconnect';
 // import Header from './Header';
 import NotFound from './NotFound';
+import React from 'react';
 
 function Home() {
-    if(window.location.pathname !== '/') {
-        return <NotFound />
-    }
+    console.log(`Home ${window.location.pathname}`)
+    // if(window.location.pathname !== '/') {
+    //     return <NotFound />
+    // }
 
     return (
         <div>
