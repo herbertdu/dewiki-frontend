@@ -56,6 +56,11 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     const [open, setOpen] = React.useState(false);
     const isMobile = useMediaQuery('(max-width:600px)');
 
+    let markdownBoxWidth = '70%'
+    if (isMobile) {
+        markdownBoxWidth = '94%'
+    }
+
     const handleDrawerOpen = (event: React.MouseEvent) => {
         event.stopPropagation();  // To avoid triggering the handleDrawerClick function
         setOpen(true);
@@ -127,7 +132,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
             <main className={classes.main}>
                 <h1 className="text-center font-bold text-5xl mb-10 capitalize">{title}</h1>
                 <Grid container justifyContent="center" alignItems="center">
-                    <Box width={'70%'}>
+                    <Box width={markdownBoxWidth}>
                         <ReactMarkdown
                             remarkPlugins={[remarkGfm]}
                             rehypePlugins={[rehypeRaw]}
