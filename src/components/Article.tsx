@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import ReactMarkdown from 'react-markdown';
 import { Theme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { createStyles, makeStyles } from '@mui/styles';
 import MarkdownNavbar from '../utils/markdown-navbar/index';
 import remarkGfm from 'remark-gfm';
@@ -53,14 +54,24 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     const [title, setTitle] = useState('');
 
     const [open, setOpen] = React.useState(false);
+    const isMobile = useMediaQuery('(max-width:600px)');
 
-    const handleDrawerOpen = () => {
+    const handleDrawerOpen = (event: React.MouseEvent) => {
+        event.stopPropagation();  // To avoid triggering the handleDrawerClick function
         setOpen(true);
     };
 
-    const handleDrawerClose = () => {
+    const handleDrawerClose = (event: React.MouseEvent) => {
+        event.stopPropagation();  // To avoid triggering the handleDrawerClick function
         setOpen(false);
     };
+
+    const handleDrawerClick = (event: React.MouseEvent) => {
+        if (isMobile && !(event.target as HTMLElement).closest('.drawer')) {
+            setOpen(false);
+        }
+    };
+
     useEffect(() => {
         const fetchArticle = async () => {
             let article = await getArticle(articleId, lang);
@@ -78,7 +89,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     }
 
     return (
-        <div>
+        <div onClick={handleDrawerClick}>
             <Affix offsetTop={5}>
                 <IconButton
                     color="inherit"
@@ -89,7 +100,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
                     <MenuIcon />
                 </IconButton>
                 <Drawer
-                    className={classes.drawer}
+                    className={`${classes.drawer} drawer`}
                     variant={open ? 'permanent' : 'temporary'}
                     classes={{ paper: classes.paper }}
                 >
