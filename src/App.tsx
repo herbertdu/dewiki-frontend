@@ -1,10 +1,11 @@
 import { HashRouter, Routes, Route, useParams } from 'react-router-dom';
 
 import Home from './pages/Home';
-import Article from './components/Article';
+import { ArticleWithParams } from './components/Article';
 import NotFound from './pages/NotFound';
 import { i18nScope } from './languages';
 import { VoerkaI18nProvider } from '@voerkai18n/react';
+import React from 'react';
 
 function App() {
     return (
@@ -20,16 +21,6 @@ function App() {
     );
 }
 
-function ArticleWithParams() {
-    let { id } = useParams();
-    if (!id) {
-        return <NotFound />;
-    }
-    let articleId = parseInt(id);
-    if (isNaN(articleId)) {
-        return <NotFound />;
-    }
-    return <Article articleId={articleId} lang="en" />;
-}
+
 
 export default App;

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useVoerkaI18n } from '@voerkai18n/react';
 
 const ChangeLanguage: React.FC = () => {
-    const { t, activeLanguage, changeLanguage, languages, defaultLanguage } = useVoerkaI18n();
+    const { t, activeLanguage, changeLanguage, languages} = useVoerkaI18n();
     const [isOpen, setIsOpen] = useState(false);
     const [buttonPos, setButtonPos] = useState({ top: 0, left: 0 });
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -35,7 +35,7 @@ const ChangeLanguage: React.FC = () => {
     return (
         <div className="flex justify-between items-center w-96 relative" ref={node}>
             <button
-                className="inline-block relative px-2 py-1 bg-white text-black cursor-pointer hover:bg-white"
+                className="inline-block relative px-2 py-1 bg-white text-black cursor-pointer hover:bg-white uppercase rounded-md"
                 onClick={handleClick}
                 ref={buttonRef}
             >

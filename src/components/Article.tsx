@@ -11,6 +11,9 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import 'github-markdown-css';
 import './navbar.css';
+import { useParams } from 'react-router-dom';
+import NotFound from '../pages/NotFound';
+import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -88,5 +91,17 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
         </div>
     );
 };
+
+export function ArticleWithParams() {
+    let { id } = useParams();
+    if (!id) {
+        return <NotFound />;
+    }
+    let articleId = parseInt(id);
+    if (isNaN(articleId)) {
+        return <NotFound />;
+    }
+    return <Article articleId={articleId} lang="en" />;
+}
 
 export default Article;

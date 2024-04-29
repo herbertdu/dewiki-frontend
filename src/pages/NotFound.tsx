@@ -1,5 +1,6 @@
 import { useVoerkaI18n } from '@voerkai18n/react';
 import ChangeLanguage from '../components/ChangeLanguage';
+import React from 'react';
 function NotFound() {
     const { t } = useVoerkaI18n();
     return (
