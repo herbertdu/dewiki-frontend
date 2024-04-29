@@ -9,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ReactMarkdown from 'react-markdown';
 import { Theme } from '@mui/material/styles';
 import { createStyles, makeStyles } from '@mui/styles';
-import MarkNav from 'markdown-navbar';
+import MarkdownNavbar from '../utils/markdown-navbar/index';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import NotFound from '../pages/NotFound';
@@ -18,7 +18,7 @@ import { getArticle } from '../utils/article';
 
 import { Affix } from 'antd';
 import 'github-markdown-css';
-import './navbar.css';
+import "../utils/markdown-navbar/navbar.css";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -102,11 +102,13 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
                         <CloseIcon />
                     </IconButton>
                     <Box>
-                        <MarkNav
+                        <MarkdownNavbar 
                             className="article"
                             source={content}
                             headingTopOffset={40} //The distance from the top
-                            ordered={false} //Does it display the title numbers 1, 2, etc.?
+                            ordered={false} //Does it display the title numbers 1, 2, etc.
+                            updateHashAuto = {false} // Automatically update the hash value of browser address when page scrolling if true
+                            updateHashOnClick = {false}
                         />
                     </Box>
                 </Drawer>
