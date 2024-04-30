@@ -12,8 +12,8 @@ function App() {
         <VoerkaI18nProvider fallback={<div>Loading the language pack...</div>} scope={i18nScope}>
             <HashRouter>
                 <Routes>
-                    <Route path={'/'} element={<Home />} />
-                    <Route path={'/a/:id'} element={<ArticleWithParams />} />
+                    <Route path={'/:lang?'} element={<Home />} />
+                    <Route path={'/:lang/a/:id'} element={<ArticleWithParams />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </HashRouter>

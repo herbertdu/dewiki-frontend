@@ -8,25 +8,25 @@
         ]
     },
     "Categories": {
-        "zh": "类别",
+        "zh": "Categories",
         "en": "Categories",
-        "jp": "カテゴリ",
+        "jp": "Categories",
         "$files": [
             "components/Header.tsx"
         ]
     },
     "About": {
-        "zh": "关于",
+        "zh": "About",
         "en": "About",
-        "jp": "について",
+        "jp": "About",
         "$files": [
             "components/Header.tsx"
         ]
     },
     "More": {
-        "zh": "更多",
+        "zh": "More",
         "en": "More",
-        "jp": "詳細",
+        "jp": "More",
         "$files": [
             "components/Header.tsx"
         ]

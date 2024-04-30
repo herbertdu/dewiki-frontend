@@ -58,7 +58,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
 
     let markdownBoxWidth = '70%'
     if (isMobile) {
-        markdownBoxWidth = '94%'
+        markdownBoxWidth = '93%'
     }
 
     const handleDrawerOpen = (event: React.MouseEvent) => {
@@ -148,7 +148,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
 };
 
 export function ArticleWithParams() {
-    let { id } = useParams();
+    let {lang, id } = useParams();
     if (!id) {
         return <NotFound />;
     }
@@ -159,7 +159,9 @@ export function ArticleWithParams() {
     if (isNaN(articleId)) {
         return <NotFound />;
     }
-    return <Article articleId={articleId} lang="en" />;
+    console.log(lang);
+    lang = lang || 'en';
+    return <Article articleId={articleId} lang={lang} />;
 }
 
 export default Article;

@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useVoerkaI18n } from '@voerkai18n/react';
+import { useNavigate } from 'react-router-dom';
+
 
 const ChangeLanguage: React.FC = () => {
     const { t, activeLanguage, changeLanguage, languages} = useVoerkaI18n();
@@ -7,6 +9,7 @@ const ChangeLanguage: React.FC = () => {
     const [buttonPos, setButtonPos] = useState({ top: 0, left: 0 });
     const buttonRef = useRef<HTMLButtonElement>(null);
     const node = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Add logic to handle clicks outside
@@ -33,7 +36,7 @@ const ChangeLanguage: React.FC = () => {
     };
 
     return (
-        <div className="flex justify-between items-center w-96 relative" ref={node}>
+        <div className="flex justify-between items-center w-20 relative" ref={node}>
             <button
                 className="inline-block relative px-2 py-1 bg-white text-black cursor-pointer hover:bg-white uppercase rounded-md"
                 onClick={handleClick}
@@ -52,6 +55,7 @@ const ChangeLanguage: React.FC = () => {
                             className="block w-full text-left px-3 py-2 text-black hover:bg-gray-200"
                             key={lang.name}
                             onClick={() => {
+                                navigate(`/${lang.name}`, { replace: true });
                                 changeLanguage(lang.name);
                                 setIsOpen(false);
                             }}
