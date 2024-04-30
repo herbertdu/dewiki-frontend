@@ -33,18 +33,19 @@ const Header = () => {
     return (
         <header className="flex items-center justify-between px-6 py-4 bg-white shadow">
             <div className="flex items-center space-x-2">
-                <img src="/logo.svg" alt="DeWiki logo" className="w-8 h-8" />
+                <img src="logo.svg" alt="DeWiki logo" className="w-8 h-8" />
                 <a href='/' className="text-lg font-semibold">DeWiki</a>
             </div>
             {isMobile ? (
-                <>
+                <div className="flex items-center">
+                    <ChangeLanguage />
                     <button onClick={handleDrawerToggle}>
                         {open ? <CloseIcon /> : <MenuIcon />}
                     </button>
                     <Drawer anchor="right" open={open} onClose={handleDrawerToggle}>
                         {drawer}
                     </Drawer>
-                </>
+                </div>
             ) : (
                 <>
                     <nav className="hidden md:block space-x-8">
@@ -59,6 +60,7 @@ const Header = () => {
                     </div>
                 </>
             )}
+
         </header>
     );
 };
