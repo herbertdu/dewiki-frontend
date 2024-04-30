@@ -30,5 +30,13 @@
         "$files": [
             "components/Header.tsx"
         ]
+    },
+    "Sign In": {
+        "zh": "登录",
+        "en": "Sign In",
+        "jp": "ログイン＃ログイン＃",
+        "$files": [
+            "components/Header.tsx"
+        ]
     }
 }
