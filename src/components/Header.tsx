@@ -25,7 +25,7 @@ const Header = () => {
             <div className="space-y-2">
                 <input type="text" placeholder="Search articles, categories, tags and users" className="px-4 py-2 border border-gray-300 rounded-md w-full" />
                 <ChangeLanguage />
-                <button className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color rounded-md w-full">Sign In</button>
+                <button className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color rounded-md w-full">{t('Sign In')}</button>
             </div>
         </div>
     );
