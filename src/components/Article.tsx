@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -20,6 +20,7 @@ import { getArticle } from '../utils/article';
 import { Affix } from 'antd';
 import 'github-markdown-css';
 import "../utils/markdown-navbar/navbar.css";
+import processParams from '../utils/component';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,8 +51,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     const classes = useStyles();
     const [content, setContent] = useState('');
-    const [isLoading, setIsLoading] = useState(true);
     const [title, setTitle] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
     const [open, setOpen] = React.useState(false);
     const isMobile = useMediaQuery('(max-width:600px)');
@@ -130,7 +131,12 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
                 </Drawer>
             </Affix>
             <main className={classes.main}>
-                <h1 className="text-center font-bold text-5xl mb-10 capitalize">{title}</h1>
+                <h1 className="text-center font-bold text-5xl mb-5 capitalize">{title}</h1>
+                <div className="text-lg text-gray-500 underline font-semibold text-center mb-10">
+                    <Link to={`/${lang}/a/${articleId}/edit`} >
+                        <div>edit</div>
+                    </Link>
+                </div>
                 <Grid container justifyContent="center" alignItems="center">
                     <Box width={markdownBoxWidth}>
                         <ReactMarkdown
@@ -147,21 +153,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     );
 };
 
-export function ArticleWithParams() {
-    let {lang, id } = useParams();
-    if (!id) {
-        return <NotFound />;
-    }
-    if (!/^\d+$/.test(id)) {
-        return <NotFound />;
-    }
-    let articleId = parseInt(id);
-    if (isNaN(articleId)) {
-        return <NotFound />;
-    }
-    console.log(lang);
-    lang = lang || 'en';
-    return <Article articleId={articleId} lang={lang} />;
-}
+export const ArticleWithParams = processParams(Article);
+
 
 export default Article;
