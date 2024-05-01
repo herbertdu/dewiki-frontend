@@ -13,7 +13,7 @@ function Home() {
             changeLanguage(lang);
         }
         return () => {};
-    }, []);
+    }, [lang]);
     if (!langs.includes(lang)) {
         return <div>Language not supported</div>;
     }

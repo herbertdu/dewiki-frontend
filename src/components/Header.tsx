@@ -5,9 +5,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import Drawer from '@mui/material/Drawer';
+import { Link } from "react-router-dom";
 
 const Header = () => {
-    const { t } = useVoerkaI18n();
+    const { t, activeLanguage } = useVoerkaI18n();
     const isMobile = useMediaQuery('(max-width:600px)');
     const [open, setOpen] = useState(false);
 
@@ -15,12 +16,20 @@ const Header = () => {
         setOpen(!open);
     };
 
+    const linker = (
+        <>
+            <Link to={`/${activeLanguage}/categories`} className="hover:text-indigo-color">
+                <div>{t('Categories')}</div>
+            </Link>
+            <a href="#" className="text-black hover:text-indigo-color">{t('About')}</a>
+            <a href="#" className="text-black hover:text-indigo-color">{t('More')}</a>
+        </>
+    )
+
     const drawer = (
         <div className="flex flex-col items-start space-y-4 p-4">
             <nav className="flex flex-col space-y-2">
-                <a href="#" className="hover:text-indigo-color">{t('Categories')}</a>
-                <a href="#" className="text-black hover:text-indigo-color">{t('About')}</a>
-                <a href="#" className="text-black hover:text-indigo-color">{t('More')}</a>
+                {linker}
             </nav>
             <div className="space-y-2">
                 <input type="text" placeholder="Search articles, categories, tags and users" className="px-4 py-2 border border-gray-300 rounded-md w-full" />
@@ -34,7 +43,9 @@ const Header = () => {
         <header className="flex items-center justify-between px-6 py-4 bg-white shadow">
             <div className="flex items-center space-x-2">
                 <img src="logo.svg" alt="DeWiki logo" className="w-8 h-8" />
-                <a href='/' className="text-lg font-semibold">DeWiki</a>
+                <Link to={"/"} className="text-lg font-semibold0">
+                    <div>DeWiki</div>
+                </Link>
             </div>
             {isMobile ? (
                 <div className="flex items-center">
@@ -48,10 +59,8 @@ const Header = () => {
                 </div>
             ) : (
                 <>
-                    <nav className="hidden md:block space-x-8">
-                        <a href="#" className="hover:text-indigo-color">{t('Categories')}</a>
-                        <a href="#" className="text-black hover:text-indigo-color">{t('About')}</a>
-                        <a href="#" className="text-black hover:text-indigo-color">{t('More')}</a>
+                    <nav className="flex flex-row space-x-8">
+                        {linker}
                     </nav>
                     <div className="flex items-center space-x-4">
                         <input type="text" placeholder="Search articles, categories, tags and users" className="px-4 py-2 border border-gray-300 rounded-md" />

@@ -55,7 +55,15 @@ const ChangeLanguage: React.FC = () => {
                             className="block w-full text-left px-3 py-2 text-black hover:bg-gray-200"
                             key={lang.name}
                             onClick={() => {
-                                navigate(`/${lang.name}`, { replace: true });
+                                let hash = window.location.hash;
+                                console.log('hash', hash)
+                                if (hash === '' || hash === '#/') {
+                                   navigate(`/${lang.name}`, { replace: true });
+                                } else {
+                                    let url = hash.replace(/#\/\w+/, `/${lang.name}`);
+                                    console.log(url)
+                                    navigate(`${url}`, { replace: true });
+                                }
                                 changeLanguage(lang.name);
                                 setIsOpen(false);
                             }}
