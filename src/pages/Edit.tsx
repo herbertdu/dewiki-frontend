@@ -13,7 +13,7 @@ interface EditProps {
 
 const Edit: FC<EditProps> = (props) => {
     const [vd, setVd] = useState<Vditor>();
-    const [article, setArticle] = useState({ content: '', name: '' });
+    const [article, setArticle] = useState({ content: '', title: '' });
     const { t, activeLanguage, changeLanguage, languages } = useVoerkaI18n();
     const langs = languages.map((language) => language.name);
 

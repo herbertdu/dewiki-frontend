@@ -26,7 +26,7 @@ const CategoryPage = () => {
         let categoryName = category.names[lang];
         let articles = category.articles;
         let articleLinks = Object.keys(articles).map((articleId) => {
-            let articleName = articles[articleId][lang]; // Select the article name based on the current language
+            let articleName = articles[articleId][lang]; // Select the article title based on the current language
             let url = `#/${lang}/a/${articleId}`; // Generate the URL of the article
 
             return { articleName, url };

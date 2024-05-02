@@ -12,7 +12,7 @@ describe('testGetArticle', () => {
     test('valid articleId', async () => {
         let article = await getArticle(1, 'en');
         let expectedArticle = {
-            name: 'bitcoin',
+            title: 'bitcoin',
             content: expect.stringContaining('Bitcoin (BTC) is the first decentralized cryptocurrency'),
         };
         expect(article).toEqual(expectedArticle);

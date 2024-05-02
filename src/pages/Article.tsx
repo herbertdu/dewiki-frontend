@@ -89,8 +89,8 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
         const fetchArticle = async () => {
             let article = await getArticle(articleId, lang);
             setContent(article.content);
-            setTitle(article.name);
-            document.title = `${article.name} | DeWiki`;
+            setTitle(article.title);
+            document.title = `${article.title} | DeWiki`;
             setIsLoading(false);
         };
 

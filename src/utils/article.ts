@@ -20,10 +20,10 @@ export async function getArticle(articleId: number, lang: string): Promise<any> 
         tags: [{ name: 'Action', value: 'GetLanguageVersion' }],
         data: JSON.stringify({ articleId: articleId, lang: lang }),
     });
-    let article = { name: '', content: '' };
+    let article = { title: '', content: '' };
     if (isContainAction(Messages, 'ReceiveLanguageVersion')) {
         let langVersion = JSON.parse(Messages[0].Data);
-        article.name = langVersion.name;
+        article.title = langVersion.title;
         article.content = mergeMrs(langVersion);
     } else {
         alert('Error: ' + Error);
