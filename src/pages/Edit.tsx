@@ -1,9 +1,7 @@
-import React, { FC, useState, useEffect, ComponentType } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import Vditor from 'vditor';
 import 'vditor/dist/index.css';
 import { getArticle } from '../utils/article';
-import { useParams } from 'react-router-dom';
-import NotFound from './NotFound';
 import processParams from '../utils/component';
 import Header from '../components/Header';
 import { useVoerkaI18n } from '@voerkai18n/react';

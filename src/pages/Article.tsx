@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -13,7 +13,6 @@ import { createStyles, makeStyles } from '@mui/styles';
 import MarkdownNavbar from '../utils/markdown-navbar/index';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import NotFound from './NotFound';
 
 import { getArticle } from '../utils/article';
 
