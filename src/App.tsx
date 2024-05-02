@@ -1,7 +1,7 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
-import { ArticleWithParams } from './components/Article';
+import { ArticleWithParams } from './pages/Article';
 import NotFound from './pages/NotFound';
 import { i18nScope } from './languages';
 import { VoerkaI18nProvider } from '@voerkai18n/react';

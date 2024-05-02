@@ -13,7 +13,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import MarkdownNavbar from '../utils/markdown-navbar/index';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import NotFound from '../pages/NotFound';
+import NotFound from './NotFound';
 
 import { getArticle } from '../utils/article';
 
@@ -21,6 +21,8 @@ import { Affix } from 'antd';
 import 'github-markdown-css';
 import "../utils/markdown-navbar/navbar.css";
 import processParams from '../utils/component';
+import Header from '../components/Header';
+import { useVoerkaI18n } from '@voerkai18n/react';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -57,6 +59,9 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     const [open, setOpen] = React.useState(false);
     const isMobile = useMediaQuery('(max-width:600px)');
 
+    const { t, activeLanguage, changeLanguage, languages } = useVoerkaI18n();
+    const langs = languages.map((language) => language.name);
+
     let markdownBoxWidth = '70%'
     if (isMobile) {
         markdownBoxWidth = '93%'
@@ -79,6 +84,9 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     };
 
     useEffect(() => {
+        if (lang !== activeLanguage && langs.includes(lang)) {
+            changeLanguage(lang);
+        }
         const fetchArticle = async () => {
             let article = await getArticle(articleId, lang);
             setContent(article.content);
@@ -96,6 +104,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
 
     return (
         <div onClick={handleDrawerClick}>
+            <Header />
             <Affix offsetTop={5}>
                 <IconButton
                     color="inherit"
@@ -134,7 +143,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
                 <h1 className="text-center font-bold text-5xl mb-5 capitalize">{title}</h1>
                 <div className="text-lg text-gray-500 underline font-semibold text-center mb-10">
                     <Link to={`/${lang}/a/${articleId}/edit`} >
-                        <div>edit</div>
+                        <div>{ t("edit") }</div>
                     </Link>
                 </div>
                 <Grid container justifyContent="center" alignItems="center">

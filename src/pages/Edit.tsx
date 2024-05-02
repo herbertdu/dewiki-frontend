@@ -4,8 +4,9 @@ import 'vditor/dist/index.css';
 import { getArticle } from '../utils/article';
 import { useParams } from 'react-router-dom';
 import NotFound from './NotFound';
-import { t } from '../languages';
 import processParams from '../utils/component';
+import Header from '../components/Header';
+import { useVoerkaI18n } from '@voerkai18n/react';
 
 interface EditProps {
     articleId: number;
@@ -15,8 +16,13 @@ interface EditProps {
 const Edit: FC<EditProps> = (props) => {
     const [vd, setVd] = useState<Vditor>();
     const [article, setArticle] = useState({ content: '', name: '' });
+    const { t, activeLanguage, changeLanguage, languages } = useVoerkaI18n();
+    const langs = languages.map((language) => language.name);
 
     useEffect(() => {
+        if (props.lang !== activeLanguage && langs.includes(props.lang)) {
+            changeLanguage(props.lang);
+        }
         const fetchArticle = async () => {
             let feArticle = await getArticle(props.articleId, props.lang);
             setArticle(feArticle);
@@ -34,7 +40,7 @@ const Edit: FC<EditProps> = (props) => {
             vd?.destroy();
             setVd(undefined);
         };
-    }, [article.content]);
+    }, [article.content, props.lang]);
 
     const saveChanges = () => {
         if (vd) {
@@ -45,8 +51,9 @@ const Edit: FC<EditProps> = (props) => {
 
     return (
         <div>
+            <Header />
             <button
-                className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color rounded-md"
+                className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mb-2"
                 onClick={saveChanges}
             >
                 {t('Publish changes')}

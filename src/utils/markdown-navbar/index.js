@@ -332,9 +332,6 @@ export class MarkdownNavbar extends Component {
         if (this.updateHashTimeout) {
             clearTimeout(this.updateHashTimeout);
         }
-        console.log(value)
-        console.log(window.location.pathname)
-        console.log(window.location.search)
 
         this.updateHashTimeout = setTimeout(() => {
             window.history.replaceState(

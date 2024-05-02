@@ -12,7 +12,6 @@ const CategoryPage = () => {
     const langs = languages.map((language) => language.name);
 
     useEffect(() => {
-        console.log('CategoryPage 1')
         if (lang !== activeLanguage && langs.includes(lang)) {
             changeLanguage(lang);
         }

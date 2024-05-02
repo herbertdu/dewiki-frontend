@@ -56,12 +56,10 @@ const ChangeLanguage: React.FC = () => {
                             key={lang.name}
                             onClick={() => {
                                 let hash = window.location.hash;
-                                console.log('hash', hash)
                                 if (hash === '' || hash === '#/') {
                                    navigate(`/${lang.name}`, { replace: true });
                                 } else {
                                     let url = hash.replace(/#\/\w+/, `/${lang.name}`);
-                                    console.log(url)
                                     navigate(`${url}`, { replace: true });
                                 }
                                 changeLanguage(lang.name);

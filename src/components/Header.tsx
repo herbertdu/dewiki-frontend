@@ -40,7 +40,7 @@ const Header = () => {
     );
 
     return (
-        <header className="flex items-center justify-between px-6 py-4 bg-white shadow">
+        <header className="flex items-center justify-between px-6 py-4 bg-white shadow mb-4">
             <div className="flex items-center space-x-2">
                 <img src="logo.svg" alt="DeWiki logo" className="w-8 h-8" />
                 <Link to={"/"} className="text-lg font-semibold">
