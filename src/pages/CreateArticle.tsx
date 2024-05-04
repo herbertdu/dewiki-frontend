@@ -142,7 +142,7 @@ const CreateArticle = () => {
     });
 
     const categoryOptions = (
-        <FormControl sx={{ width: '25ch', marginRight: '20px' }}>
+        <FormControl sx={{ width: '25ch', marginRight: '20px', marginBottom: '20px' }}>
             <InputLabel id="demo-simple-select-label">Category</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
@@ -177,28 +177,29 @@ const CreateArticle = () => {
                         />
                     </form>
 
+                    <form noValidate autoComplete="off">
+                        <StyledTextField
+                            label={t('Language')}
+                            variant="outlined"
+                            id="custom-css-outlined-input"
+                            sx={{ width: '10ch' }}
+                            defaultValue="English"
+                            disabled // disable user input
+                        />
+                        <Tooltip
+                            title={t(
+                                'only support create English article first , and then you can create language version'
+                            )}
+                            open={open}
+                            onClick={handleTooltipClick}
+                        >
+                            <IconButton>
+                                <HelpOutlineIcon fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
+                    </form>
+
                     {categoryOptions}
-
-                    <StyledTextField
-                        label={t('Language')}
-                        variant="outlined"
-                        id="custom-css-outlined-input"
-                        sx={{ width: '10ch' }}
-                        defaultValue="English"
-                        disabled // disable user input
-                    />
-
-                    <Tooltip
-                        title={t(
-                            'only support create English article first , and then you can create language version'
-                        )}
-                        open={open}
-                        onClick={handleTooltipClick}
-                    >
-                        <IconButton>
-                            <HelpOutlineIcon fontSize="small" />
-                        </IconButton>
-                    </Tooltip>
 
                     <form noValidate autoComplete="off">
                         <StyledTextField
