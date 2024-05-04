@@ -221,7 +221,7 @@ const CreateArticle = () => {
 
                     <form noValidate autoComplete="off">
                         <StyledTextField
-                            label={t('EditSummary')}
+                            label={t('Edit Summary')}
                             variant="outlined"
                             id="custom-css-outlined-input"
                             sx={{ width: '70%' }}
@@ -236,15 +236,15 @@ const CreateArticle = () => {
 
                     <form noValidate autoComplete="off">
                         <StyledTextField
-                            label={t('WordCount')}
+                            label={t('Valid Word Count')}
                             variant="outlined"
                             id="custom-css-outlined-input"
-                            sx={{ width: '11ch' }}
+                            sx={{ width: '15ch' }}
                             value={wordCount}
                             onChange={handleWordCount}
                         />
                         <button className="bg-gray-200 px-4 py-1" onClick={handleAutoCount}>
-                            {t('auto count')}
+                            {t('Auto Count')}
                         </button>
                     </form>
 
@@ -254,7 +254,7 @@ const CreateArticle = () => {
                             onClick={handleSave}
                             disabled={loading}
                         >
-                            {loading ? `${t('Saving...')}` : `${t('Save')}`}
+                            {loading ? `${t('Saving')}...` : `${t('Save')}`}
                         </button>
                     </div>
                     <Modal title="Create Article Success" open={visible} onOk={handleOk} onCancel={handleOk}>

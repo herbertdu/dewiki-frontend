@@ -38,5 +38,157 @@
         "$files": [
             "components/Header.tsx"
         ]
+    },
+    "Sign in please": {
+        "zh": "请登录",
+        "en": "Sign in please",
+        "jp": "ログインしてください",
+        "$files": [
+            "utils/wallet.ts"
+        ]
+    },
+    "Sign in method not available in this browser.\\nPlease use a different browser or install the ArConnect extension.": {
+        "zh": "登录方法在此浏览器中不可用。\\请使用其他浏览器或安装ArConnect扩展。",
+        "en": "Sign in method not available in this browser.\\nPlease use a different browser or install the ArConnect extension.",
+        "jp": "ログイン方法はこのブラウザでは使用できません。別のブラウザを使用するか、ArConnect拡張をインストールしてください。",
+        "$files": [
+            "components/Wallet.tsx"
+        ]
+    },
+    "edit": {
+        "zh": "编辑",
+        "en": "edit",
+        "jp": "編集",
+        "$files": [
+            "pages/Article.tsx"
+        ]
+    },
+    "data is": {
+        "zh": "数据是",
+        "en": "data is",
+        "jp": "データは",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Are you sure to save": {
+        "zh": "你确定要保存吗",
+        "en": "Are you sure to save",
+        "jp": "本当に保存しますか。",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Title": {
+        "zh": "标题",
+        "en": "Title",
+        "jp": "タイトル",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Language": {
+        "zh": "语言",
+        "en": "Language",
+        "jp": "言語",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "only support create English article first , and then you can create language version": {
+        "zh": "只支持先创建英文条目，然后才能创建语言版本",
+        "en": "only support create English article first , and then you can create language version",
+        "jp": "言語バージョンを作成する前に英語の記事を作成することのみがサポートされています",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Group": {
+        "zh": "组",
+        "en": "Group",
+        "jp": "グループ化",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Tags": {
+        "zh": "标签",
+        "en": "Tags",
+        "jp": "タブ",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Edit Summary": {
+        "zh": "编辑摘要",
+        "en": "EditSummary",
+        "jp": "概要の編集",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Content": {
+        "zh": "内容",
+        "en": "Content",
+        "jp": "ないよう",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Save": {
+        "zh": "保存",
+        "en": "Save",
+        "jp": "保存する",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "View": {
+        "zh": "浏览",
+        "en": "View",
+        "jp": "漫読する",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Edit": {
+        "zh": "编辑",
+        "en": "Edit",
+        "jp": "編集",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Publish changes": {
+        "zh": "发布更改",
+        "en": "Publish changes",
+        "jp": "変更のパブリッシュ",
+        "$files": [
+            "pages/Edit.tsx"
+        ]
+    },
+    "Valid Word Count": {
+        "zh": "有效字数",
+        "en": "Valid Word Count",
+        "jp": "有効な文字数",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Auto Count": {
+        "zh": "自动计数",
+        "en": "Auto Count",
+        "jp": "じどうけいすう",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Saving": {
+        "zh": "节省物",
+        "en": "Saving",
+        "jp": "節約",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
     }
 }
