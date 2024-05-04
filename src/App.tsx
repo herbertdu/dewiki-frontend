@@ -8,6 +8,7 @@ import { VoerkaI18nProvider } from '@voerkai18n/react';
 import React from 'react';
 import CategoryPage from './pages/CategoryPage';
 import { EditWithParams } from './pages/Edit';
+import CreateArticle from './pages/CreateArticle';
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path={'/:lang/a/:id'} element={<ArticleWithParams />} />
                     <Route path={'/:lang/a/:id/edit'} element={<EditWithParams />} />
                     <Route path={'/:lang/categories'} element={<CategoryPage />} />
+                    <Route path={'/:lang/createArticle'} element={<CreateArticle />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </HashRouter>

@@ -2,6 +2,7 @@ import Header from '../components/Header';
 import { useParams } from 'react-router-dom';
 import { useVoerkaI18n } from '@voerkai18n/react';
 import { useEffect } from 'react';
+import Footer from '../components/Footer';
 
 function Home() {
     let { lang = 'en' } = useParams();
@@ -24,6 +25,7 @@ function Home() {
             <div>
                 <p className="text-blue-600">Hello, World!</p>
             </div>
+            <Footer />
         </div>
     );
 }

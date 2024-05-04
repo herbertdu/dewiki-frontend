@@ -22,6 +22,7 @@ import "../utils/markdown-navbar/navbar.css";
 import processParams from '../utils/component';
 import Header from '../components/Header';
 import { useVoerkaI18n } from '@voerkai18n/react';
+import Footer from '../components/Footer';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -157,6 +158,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
                     </Box>
                 </Grid>
             </main>
+            <Footer />
         </div>
     );
 };

@@ -9,7 +9,12 @@ const Wallet: React.FC = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            if (window && window.arweaveWallet) {
+            if (!(window && window.arweaveWallet)) {
+                return;
+            }
+
+            const permissions = await window.arweaveWallet.getPermissions();
+            if (permissions.includes('ACCESS_ADDRESS')) {
                 const address = await window.arweaveWallet.getActiveAddress();
                 setAddress(address);
             }
@@ -20,12 +25,12 @@ const Wallet: React.FC = () => {
 
     const fetchAddress = async () => {
         if (!(window && window.arweaveWallet)) {
-            alert('Login method not available!');
+            alert(t('Sign in method not available in this browser.\nPlease use a different browser or install the ArConnect extension.'));
             return;
         }
         await window.arweaveWallet.connect(permissions, {
             name: 'DeWiki',
-            logo: 'OVJ2EyD3dKFctzANd0KX_PCgg8IQvk0zYqkWIj-aeaU',
+            logo: 'H6-G3FiknMDKBF4zGHnKNojhKCU5v-37rk4aCTao0-4',
         });
         try {
             const address = await window.arweaveWallet.getActiveAddress();
@@ -38,7 +43,7 @@ const Wallet: React.FC = () => {
     return (
         <>
             {address ? (
-                <button className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color">
+                <button className="px-4 py-2 text-indigo-color border border-solid border-indigo-color">
                     {address.slice(0, 4)}...{address.slice(-3)}
                 </button>
             ) : (

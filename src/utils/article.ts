@@ -30,3 +30,17 @@ export async function getArticle(articleId: number, lang: string): Promise<any> 
     }
     return article;
 }
+
+export function getChanges(oldContent: string, newContent: string): string {
+    const dmp = new diff_match_patch();
+    dmp.Match_Threshold = 0.1;
+    const patches = dmp.patch_make(oldContent, newContent);
+    return dmp.patch_toText(patches);
+}
+
+export function countWords(str: string): number {
+    if (str === '') {
+        return 0;
+    }
+    return str.split(/\s+/).length - 1;
+}

@@ -5,6 +5,7 @@ import { getArticle } from '../utils/article';
 import processParams from '../utils/component';
 import Header from '../components/Header';
 import { useVoerkaI18n } from '@voerkai18n/react';
+import Footer from '../components/Footer';
 
 interface EditProps {
     articleId: number;
@@ -57,6 +58,7 @@ const Edit: FC<EditProps> = (props) => {
                 {t('Publish changes')}
             </button>
             <div id="vditor" className="vditor" />
+            <Footer />
         </div>
     );
 };
