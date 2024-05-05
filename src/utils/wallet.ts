@@ -30,7 +30,7 @@ export async function checkWallet() {
         document.body.appendChild(messageElement);
         setTimeout(() => {
             document.body.removeChild(messageElement);
-        }, 10000);
+        }, 5000);
     }
 
     if (!(window && window.arweaveWallet)) {

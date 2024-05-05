@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getCategories } from '../utils/category';
 import Header from '../components/Header';
@@ -9,7 +9,7 @@ import Footer from '../components/Footer';
 const CategoryPage = () => {
     let { lang = 'en' } = useParams();
     const [categories, setCategories] = useState([]);
-    const { activeLanguage, changeLanguage, languages} = useVoerkaI18n();
+    const {t, activeLanguage, changeLanguage, languages } = useVoerkaI18n();
     const langs = languages.map((language) => language.name);
 
     useEffect(() => {
@@ -38,6 +38,11 @@ const CategoryPage = () => {
     return (
         <div>
             <Header />
+            <div className="text-lg text-gray-500 underline font-semibold text-start mb-10">
+                <Link to={`/${lang}/createArticle`}>
+                    <div>{t('Create new article')}</div>
+                </Link>
+            </div>
             <div style={{ fontFamily: 'Arial, sans-serif', color: '#333' }}>
                 {categoryIndex.map((category, index) => (
                     <div

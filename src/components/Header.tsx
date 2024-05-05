@@ -41,7 +41,6 @@ const Header = () => {
                     className="px-4 py-2 border border-gray-300 rounded-md w-full"
                 />
                 <ChangeLanguage />
-                <Wallet />
             </div>
         </div>
     );
@@ -57,6 +56,9 @@ const Header = () => {
             {isMobile ? (
                 <div className="flex items-center">
                     <ChangeLanguage />
+                    <div className="mr-3">
+                        <Wallet />
+                    </div>
                     <button onClick={handleDrawerToggle}>{open ? <CloseIcon /> : <MenuIcon />}</button>
                     <Drawer anchor="right" open={open} onClose={handleDrawerToggle}>
                         {drawer}

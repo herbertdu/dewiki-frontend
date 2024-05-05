@@ -36,7 +36,7 @@ const ChangeLanguage: React.FC = () => {
     };
 
     return (
-        <div className="flex justify-between items-center w-20 relative" ref={node}>
+        <div className="flex justify-between items-center w-15 relative" ref={node}>
             <button
                 className="inline-block relative px-2 py-1 bg-white text-black cursor-pointer hover:bg-white uppercase rounded-md"
                 onClick={handleClick}
