@@ -147,16 +147,18 @@ const CreateArticle = () => {
     return (
         <>
             <Header />
+            <h1 className="text-start text-2xl mt-10 mb-5">{t('Create article')}</h1>
             <div className="flex justify-center items-center">
                 <div className="container">
                     <form noValidate autoComplete="off">
                         <StyledTextField
-                            label={t('Title')}
+                            label={t('Title') + '*'}
                             variant="outlined"
                             id="custom-css-outlined-input"
                             sx={{ width: '70%' }}
                             value={title}
                             onChange={handleTitleChange}
+                            error={title === ''}
                         />
                     </form>
 
@@ -186,12 +188,13 @@ const CreateArticle = () => {
 
                     <form noValidate autoComplete="off">
                         <StyledTextField
-                            label={t('Group')}
+                            label={t('Group') + '*'}
                             variant="outlined"
                             id="custom-css-outlined-input"
                             sx={{ width: '8ch' }}
                             value={group}
                             onChange={handleGroupChange}
+                            error={group === 0}
                         />
                         <StyledTextField
                             label={t('Tags')}
@@ -220,7 +223,7 @@ const CreateArticle = () => {
 
                     <form noValidate autoComplete="off">
                         <StyledTextField
-                            label={t('Valid Word Count')}
+                            label={t('Valid Word Count') + '*'}
                             variant="outlined"
                             id="custom-css-outlined-input"
                             sx={{ width: '15ch' }}

@@ -12,6 +12,9 @@ export const StyledTextField = styled(TextField)({
         '&.Mui-focused fieldset': {
             borderColor: 'black',
         },
+        '&.Mui-error fieldset': {
+            borderColor: 'red',
+        },
     },
     marginBottom: '20px',
     marginRight: '20px',

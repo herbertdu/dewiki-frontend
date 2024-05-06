@@ -83,8 +83,10 @@ const CreateLangVersion = () => {
             changes: changes,
         };
         let confirmData = JSON.parse(JSON.stringify(data));
-        confirmData.changes = decodeURIComponent(confirmData.changes)
-        if (window.confirm(`${t('data is')}:\n${JSON.stringify(confirmData, null, 2)}\n\n${t('Are you sure to save')}?`)) {
+        confirmData.changes = decodeURIComponent(confirmData.changes);
+        if (
+            window.confirm(`${t('data is')}:\n${JSON.stringify(confirmData, null, 2)}\n\n${t('Are you sure to save')}?`)
+        ) {
             setLoading(true);
             let Messages = await sendMessage('CreateLanguageVersion', data, 'CreatedLanguageVersion');
             setResponse(JSON.parse(Messages[0].Data));
@@ -118,20 +120,23 @@ const CreateLangVersion = () => {
 
     const languageOptions = (
         <FormControl sx={{ width: '25ch', marginRight: '20px', marginBottom: '20px' }}>
-            <InputLabel id="demo-simple-select-label">{t('Language')}</InputLabel>
+            <InputLabel id="demo-simple-select-label">{t('Language') + '*'}</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={language}
                 label="Language"
                 onChange={handleLanguage}
+                error={language === ''}
             >
-                {languages.map((lang: any) => (
-                    <MenuItem
-                        value={lang.name}
-                        key={lang.name}
-                    >{`${lang.name} - ${lang.title}`}</MenuItem>
-                ))}
+                {languages.map(
+                    (lang: any) =>
+                        lang.name !== 'en' && (
+                            <MenuItem value={lang.name} key={lang.name}>
+                                {`${lang.name} - ${lang.title}`}
+                            </MenuItem>
+                        )
+                )}
             </Select>
         </FormControl>
     );
@@ -139,16 +144,18 @@ const CreateLangVersion = () => {
     return (
         <>
             <Header />
+            <h1 className="text-start text-2xl mt-10 mb-5">{t('Create language version')}</h1>
             <div className="flex justify-center items-center">
                 <div className="container">
                     <form noValidate autoComplete="off">
                         <StyledTextField
-                            label={t('Title')}
+                            label={t('Title') + '*'}
                             variant="outlined"
                             id="custom-css-outlined-input"
                             sx={{ width: '70%' }}
                             value={title}
                             onChange={handleTitleChange}
+                            error={title === ''}
                         />
                     </form>
 
@@ -169,12 +176,13 @@ const CreateLangVersion = () => {
 
                     <form noValidate autoComplete="off">
                         <StyledTextField
-                            label={t('Article Id')}
+                            label={t('Article Id') + '*'}
                             variant="outlined"
                             id="custom-css-outlined-input"
                             sx={{ width: '10ch' }}
                             value={articleId}
                             onChange={handleArticleIdChange}
+                            error={articleId === 0}
                         />
                         <StyledTextField
                             label={t('Tags')}
@@ -203,7 +211,7 @@ const CreateLangVersion = () => {
 
                     <form noValidate autoComplete="off">
                         <StyledTextField
-                            label={t('Valid Word Count')}
+                            label={t('Valid Word Count') + '*'}
                             variant="outlined"
                             id="custom-css-outlined-input"
                             sx={{ width: '15ch' }}
