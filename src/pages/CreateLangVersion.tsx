@@ -18,9 +18,10 @@ import 'vditor/dist/index.css';
 import Footer from '../components/Footer';
 import { getChanges, countWords } from '../utils/article';
 import StyledTextField from '../components/Common';
+import { LANG_REGION_MAP } from '../constants/env';
 
 const CreateLangVersion = () => {
-    const { t, languages } = useVoerkaI18n();
+    const { t, languages, activeLanguage } = useVoerkaI18n();
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [open, setOpen] = useState(false);
@@ -100,14 +101,17 @@ const CreateLangVersion = () => {
     };
 
     useEffect(() => {
+        let vditorLang: keyof II18n = LANG_REGION_MAP[
+            (activeLanguage as keyof typeof LANG_REGION_MAP) || 'en'
+        ] as keyof II18n;
         async function fetch() {
             checkWallet();
-            const vditor = new Vditor('vditor', {
+            const vditor = new Vditor('vditorCreateLangVersion', {
                 after: () => {
-                    vditor.setValue('');
                     setVd(vditor);
                 },
                 outline: { enable: true, position: 'left' },
+                lang: vditorLang,
             });
         }
         fetch();
@@ -116,7 +120,7 @@ const CreateLangVersion = () => {
             vd?.destroy();
             setVd(undefined);
         };
-    }, []);
+    }, [activeLanguage]);
 
     const languageOptions = (
         <FormControl sx={{ width: '25ch', marginRight: '20px', marginBottom: '20px' }}>
@@ -207,7 +211,7 @@ const CreateLangVersion = () => {
                     </form>
 
                     <h1 className="text-start font-bold text-3xl mt-10 mb-5 capitalize">{t('Content')}</h1>
-                    <div id="vditor" className="vditor mb-20" />
+                    <div id="vditorCreateLangVersion" className="vditor mb-20" />
 
                     <form noValidate autoComplete="off">
                         <StyledTextField

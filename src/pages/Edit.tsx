@@ -16,13 +16,14 @@ const Edit: FC<EditProps> = (props) => {
     const [vd, setVd] = useState<Vditor>();
     const [article, setArticle] = useState({ content: '', title: '' });
     const { t } = useVoerkaI18n();
+    const vditorId = `vditorEdit${props.articleId}${props.lang}`
 
     useEffect(() => {
         const fetchArticle = async () => {
             let feArticle = await getArticle(props.articleId, props.lang);
             setArticle(feArticle);
 
-            const vditor = new Vditor('vditor', {
+            const vditor = new Vditor(vditorId, {
                 after: () => {
                     vditor.setValue(article.content);
                     setVd(vditor);
@@ -53,7 +54,7 @@ const Edit: FC<EditProps> = (props) => {
             >
                 {t('Publish changes')}
             </button>
-            <div id="vditor" className="vditor" />
+            <div id={vditorId} className="vditor" />
             <Footer />
         </div>
     );

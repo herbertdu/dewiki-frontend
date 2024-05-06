@@ -9,7 +9,7 @@ import { sendMessage } from '../utils/message';
 import { checkWallet } from '../utils/wallet';
 import { getCategories } from '../utils/category';
 import { Modal } from 'antd';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -18,9 +18,10 @@ import 'vditor/dist/index.css';
 import Footer from '../components/Footer';
 import { getChanges, countWords } from '../utils/article';
 import StyledTextField from '../components/Common';
+import { LANG_REGION_MAP } from '../constants/env';
 
 const CreateArticle = () => {
-    const { t } = useVoerkaI18n();
+    const { t, activeLanguage } = useVoerkaI18n();
 
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState('');
@@ -98,16 +99,20 @@ const CreateArticle = () => {
     };
 
     useEffect(() => {
+        let vditorLang: keyof II18n = LANG_REGION_MAP[
+            (activeLanguage as keyof typeof LANG_REGION_MAP) || 'en'
+        ] as keyof II18n;
         async function fetch() {
             checkWallet();
             let categories = await getCategories();
             setCategories(categories);
-            const vditor = new Vditor('vditor', {
+            const vditor = new Vditor('vditorCreateArticle', {
                 after: () => {
                     vditor.setValue('');
                     setVd(vditor);
                 },
                 outline: { enable: true, position: 'left' },
+                lang: vditorLang,
             });
         }
         fetch();
@@ -116,7 +121,7 @@ const CreateArticle = () => {
             vd?.destroy();
             setVd(undefined);
         };
-    }, []);
+    }, [activeLanguage]);
 
     let categoryIndex = categories.map((category: any, index) => {
         let categoryId = index + 1;
@@ -219,7 +224,7 @@ const CreateArticle = () => {
                     </form>
 
                     <h1 className="text-start font-bold text-3xl mt-10 mb-5 capitalize">{t('Content')}</h1>
-                    <div id="vditor" className="vditor mb-20" />
+                    <div id="vditorCreateArticle" className="vditor mb-20" />
 
                     <form noValidate autoComplete="off">
                         <StyledTextField
