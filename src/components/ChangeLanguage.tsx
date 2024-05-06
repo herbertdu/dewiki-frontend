@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useVoerkaI18n } from '@voerkai18n/react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const ChangeLanguage: React.FC = () => {
+    let { lang = 'en' } = useParams();
     const { t, activeLanguage, changeLanguage, languages} = useVoerkaI18n();
+    const langs = languages.map((language) => language.name);
     const [isOpen, setIsOpen] = useState(false);
     const [buttonPos, setButtonPos] = useState({ top: 0, left: 0 });
     const buttonRef = useRef<HTMLButtonElement>(null);
@@ -12,6 +14,10 @@ const ChangeLanguage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (lang !== activeLanguage && langs.includes(lang)) {
+            changeLanguage(lang);
+        }
+
         // Add logic to handle clicks outside
         const handleClickOutside = (e: MouseEvent) => {
             if (node.current?.contains(e.target as Node)) {
@@ -25,7 +31,12 @@ const ChangeLanguage: React.FC = () => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, []);
+    }, [lang]);
+
+    if (!langs.includes(lang)) {
+        alert('Language not supported');
+        return <div>Language not supported</div>;
+    }
 
     const handleClick = () => {
         if (buttonRef.current) {

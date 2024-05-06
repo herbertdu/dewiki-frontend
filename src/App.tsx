@@ -9,6 +9,7 @@ import React from 'react';
 import CategoryPage from './pages/CategoryPage';
 import { EditWithParams } from './pages/Edit';
 import CreateArticle from './pages/CreateArticle';
+import CreateLangVersion from './pages/CreateLangVersion';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path={'/:lang/a/:id/edit'} element={<EditWithParams />} />
                     <Route path={'/:lang/categories'} element={<CategoryPage />} />
                     <Route path={'/:lang/createArticle'} element={<CreateArticle />} />
+                    <Route path={'/:lang/createLangVersion'} element={<CreateLangVersion />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </HashRouter>

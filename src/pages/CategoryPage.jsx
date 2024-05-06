@@ -9,19 +9,15 @@ import Footer from '../components/Footer';
 const CategoryPage = () => {
     let { lang = 'en' } = useParams();
     const [categories, setCategories] = useState([]);
-    const {t, activeLanguage, changeLanguage, languages } = useVoerkaI18n();
-    const langs = languages.map((language) => language.name);
+    const { t } = useVoerkaI18n();
 
     useEffect(() => {
-        if (lang !== activeLanguage && langs.includes(lang)) {
-            changeLanguage(lang);
-        }
         const fetchCategories = async () => {
             let categories = await getCategories();
             setCategories(categories);
         };
         fetchCategories();
-    }, [lang]);
+    }, []);
 
     let categoryIndex = categories.map((category) => {
         let categoryName = category.names[lang];
@@ -41,6 +37,9 @@ const CategoryPage = () => {
             <div className="text-lg text-gray-500 underline font-semibold text-start mb-10">
                 <Link to={`/${lang}/createArticle`}>
                     <div>{t('Create new article')}</div>
+                </Link>
+                <Link to={`/${lang}/createLangVersion`}>
+                    <div>{t('Create new language version')}</div>
                 </Link>
             </div>
             <div style={{ fontFamily: 'Arial, sans-serif', color: '#333' }}>

@@ -38,9 +38,14 @@ export function getChanges(oldContent: string, newContent: string): string {
     return dmp.patch_toText(patches);
 }
 
-export function countWords(str: string): number {
+export function countWords(str: string, lang: string = 'en'): number {
     if (str === '') {
         return 0;
     }
-    return str.split(/\s+/).length - 1;
+    if (['en'].includes(lang)) {
+        return str.split(/\s+/).length - 1;
+    } else if (['zh', 'ja'].includes(lang)) {
+        return str.length -1;
+    }
+    return 0;
 }

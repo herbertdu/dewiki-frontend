@@ -59,8 +59,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     const [open, setOpen] = React.useState(false);
     const isMobile = useMediaQuery('(max-width:600px)');
 
-    const { t, activeLanguage, changeLanguage, languages } = useVoerkaI18n();
-    const langs = languages.map((language) => language.name);
+    const { t } = useVoerkaI18n();
 
     let markdownBoxWidth = '70%'
     if (isMobile) {
@@ -84,9 +83,6 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     };
 
     useEffect(() => {
-        if (lang !== activeLanguage && langs.includes(lang)) {
-            changeLanguage(lang);
-        }
         const fetchArticle = async () => {
             let article = await getArticle(articleId, lang);
             setContent(article.content);

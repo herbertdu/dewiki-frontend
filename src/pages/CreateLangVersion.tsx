@@ -19,24 +19,22 @@ import Footer from '../components/Footer';
 import { getChanges, countWords } from '../utils/article';
 import StyledTextField from '../components/Common';
 
-const CreateArticle = () => {
-    const { t } = useVoerkaI18n();
-
-    const [categories, setCategories] = useState([]);
-    const [category, setCategory] = useState('');
+const CreateLangVersion = () => {
+    const { t, languages } = useVoerkaI18n();
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [open, setOpen] = useState(false);
-    const [response, setResponse] = useState({ articleId: 0, articleData: {} });
+    const [response, setResponse] = useState({ lang: '', versionData: {} });
     const [title, setTitle] = useState('');
-    const [group, setGroup] = useState(0);
+    const [articleId, setArticleId] = useState(0);
     const [tags, setTags] = useState('');
     const [wordCount, setWordCount] = useState(0);
     const [editSummary, setEditSummary] = useState('');
+    const [language, setLanguage] = useState('');
     const [vd, setVd] = useState<Vditor>();
 
-    const handleChange = (event: SelectChangeEvent<string>) => {
-        setCategory(event.target.value);
+    const handleLanguage = (event: SelectChangeEvent<string>) => {
+        setLanguage(event.target.value);
     };
 
     const handleTooltipClick = () => {
@@ -47,8 +45,8 @@ const CreateArticle = () => {
         setTitle(event.target.value);
     };
 
-    const handleGroupChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setGroup(parseInt(event.target.value));
+    const handleArticleIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setArticleId(parseInt(event.target.value));
     };
 
     const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +59,7 @@ const CreateArticle = () => {
 
     const handleAutoCount = () => {
         let content = vd?.getValue() || '';
-        const cnt = countWords(content);
+        const cnt = countWords(content, language);
         setWordCount(cnt);
     };
 
@@ -76,17 +74,19 @@ const CreateArticle = () => {
         let tagsParsed: string[] = tags.split(',');
         let changes = getChanges('', vd?.getValue() || '');
         let data = {
-            group: group,
-            enTitle: title,
-            category: category,
+            articleId: articleId,
+            lang: language,
+            title: title,
             tags: tagsParsed,
             wordCount: wordCount,
             editSummary: editSummary,
             changes: changes,
         };
-        if (window.confirm(`${t('data is')}:\n${JSON.stringify(data, null, 2)}\n\n${t('Are you sure to save')}?`)) {
+        let confirmData = JSON.parse(JSON.stringify(data));
+        confirmData.changes = decodeURIComponent(confirmData.changes)
+        if (window.confirm(`${t('data is')}:\n${JSON.stringify(confirmData, null, 2)}\n\n${t('Are you sure to save')}?`)) {
             setLoading(true);
-            let Messages = await sendMessage('CreateArticle', data, 'CreatedArticle');
+            let Messages = await sendMessage('CreateLanguageVersion', data, 'CreatedLanguageVersion');
             setResponse(JSON.parse(Messages[0].Data));
             setVisible(true);
         }
@@ -100,8 +100,6 @@ const CreateArticle = () => {
     useEffect(() => {
         async function fetch() {
             checkWallet();
-            let categories = await getCategories();
-            setCategories(categories);
             const vditor = new Vditor('vditor', {
                 after: () => {
                     vditor.setValue('');
@@ -118,27 +116,21 @@ const CreateArticle = () => {
         };
     }, []);
 
-    let categoryIndex = categories.map((category: any, index) => {
-        let categoryId = index + 1;
-        let categoryName = category.names['en'];
-        return { categoryId, categoryName };
-    });
-
-    const categoryOptions = (
+    const languageOptions = (
         <FormControl sx={{ width: '25ch', marginRight: '20px', marginBottom: '20px' }}>
-            <InputLabel id="demo-simple-select-label">{t('Category')}</InputLabel>
+            <InputLabel id="demo-simple-select-label">{t('Language')}</InputLabel>
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={category}
-                label="Category"
-                onChange={handleChange}
+                value={language}
+                label="Language"
+                onChange={handleLanguage}
             >
-                {categoryIndex.map((category) => (
+                {languages.map((lang: any) => (
                     <MenuItem
-                        value={category.categoryId}
-                        key={category.categoryId}
-                    >{`${category.categoryId} - ${category.categoryName}`}</MenuItem>
+                        value={lang.name}
+                        key={lang.name}
+                    >{`${lang.name} - ${lang.title}`}</MenuItem>
                 ))}
             </Select>
         </FormControl>
@@ -161,14 +153,7 @@ const CreateArticle = () => {
                     </form>
 
                     <form noValidate autoComplete="off">
-                        <StyledTextField
-                            label={t('Language')}
-                            variant="outlined"
-                            id="custom-css-outlined-input"
-                            sx={{ width: '10ch' }}
-                            defaultValue="English"
-                            disabled // disable user input
-                        />
+                        {languageOptions}
                         <Tooltip
                             title={t(
                                 'only support create English article first , and then you can create language version'
@@ -182,16 +167,14 @@ const CreateArticle = () => {
                         </Tooltip>
                     </form>
 
-                    {categoryOptions}
-
                     <form noValidate autoComplete="off">
                         <StyledTextField
-                            label={t('Group')}
+                            label={t('Article Id')}
                             variant="outlined"
                             id="custom-css-outlined-input"
-                            sx={{ width: '8ch' }}
-                            value={group}
-                            onChange={handleGroupChange}
+                            sx={{ width: '10ch' }}
+                            value={articleId}
+                            onChange={handleArticleIdChange}
                         />
                         <StyledTextField
                             label={t('Tags')}
@@ -243,13 +226,13 @@ const CreateArticle = () => {
                     </div>
                     <Modal title="Create Article Success" open={visible} onOk={handleOk} onCancel={handleOk}>
                         <div className="text-lg text-gray-500 font-semibold text-center">
-                            articleId: {response?.articleId}
+                            language:{response?.lang} articleId: {articleId}
                         </div>
                         <div className="text-lg text-gray-500 underline font-semibold text-center mb-10">
-                            <Link to={`/en/a/${response?.articleId}`}>
+                            <Link to={`/${response?.lang}/a/${articleId}`}>
                                 <div>{t('View')}</div>
                             </Link>
-                            <Link to={`/en/a/${response?.articleId}/edit`}>
+                            <Link to={`/${response?.lang}/a/${articleId}/edit`}>
                                 <div>{t('Edit')}</div>
                             </Link>
                         </div>
@@ -261,4 +244,4 @@ const CreateArticle = () => {
     );
 };
 
-export default CreateArticle;
+export default CreateLangVersion;
