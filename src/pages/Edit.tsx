@@ -1,11 +1,11 @@
 import React, { FC, useState, useEffect } from 'react';
 import Vditor from 'vditor';
-import 'vditor/dist/index.css';
 import { getArticle } from '../utils/article';
 import processParams from '../utils/component';
 import Header from '../components/Header';
 import { useVoerkaI18n } from '@voerkai18n/react';
 import Footer from '../components/Footer';
+import Editor from '../components/Editor';
 
 interface EditProps {
     articleId: number;
@@ -16,26 +16,15 @@ const Edit: FC<EditProps> = (props) => {
     const [vd, setVd] = useState<Vditor>();
     const [article, setArticle] = useState({ content: '', title: '' });
     const { t } = useVoerkaI18n();
-    const vditorId = `vditorEdit${props.articleId}${props.lang}`
+    const editorId = `vditorEdit${props.articleId}${props.lang}`
 
     useEffect(() => {
         const fetchArticle = async () => {
             let feArticle = await getArticle(props.articleId, props.lang);
             setArticle(feArticle);
-
-            const vditor = new Vditor(vditorId, {
-                after: () => {
-                    vditor.setValue(article.content);
-                    setVd(vditor);
-                },
-                outline: { enable: true, position: 'left' },
-            });
+            vd?.setValue(article.content);
         };
         fetchArticle();
-        return () => {
-            vd?.destroy();
-            setVd(undefined);
-        };
     }, [article.content, props.lang]);
 
     const saveChanges = () => {
@@ -54,7 +43,7 @@ const Edit: FC<EditProps> = (props) => {
             >
                 {t('Publish changes')}
             </button>
-            <div id={vditorId} className="vditor" />
+            <Editor keyID={editorId} bindVditor={setVd} initialValue={article.content} />
             <Footer />
         </div>
     );

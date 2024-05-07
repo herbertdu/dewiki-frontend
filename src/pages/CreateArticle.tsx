@@ -13,15 +13,14 @@ import { Link } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import Vditor from 'vditor';
-import 'vditor/dist/index.css';
 import Footer from '../components/Footer';
 import { getChanges, countWords } from '../utils/article';
 import StyledTextField from '../components/Common';
-import { LANG_REGION_MAP } from '../constants/env';
+import Vditor from 'vditor';
+import Editor from '../components/Editor';
 
 const CreateArticle = () => {
-    const { t, activeLanguage } = useVoerkaI18n();
+    const { t } = useVoerkaI18n();
 
     const [categories, setCategories] = useState([]);
     const [category, setCategory] = useState('');
@@ -99,29 +98,13 @@ const CreateArticle = () => {
     };
 
     useEffect(() => {
-        let vditorLang: keyof II18n = LANG_REGION_MAP[
-            (activeLanguage as keyof typeof LANG_REGION_MAP) || 'en'
-        ] as keyof II18n;
         async function fetch() {
             checkWallet();
             let categories = await getCategories();
             setCategories(categories);
-            const vditor = new Vditor('vditorCreateArticle', {
-                after: () => {
-                    vditor.setValue('');
-                    setVd(vditor);
-                },
-                outline: { enable: true, position: 'left' },
-                lang: vditorLang,
-            });
         }
         fetch();
-
-        return () => {
-            vd?.destroy();
-            setVd(undefined);
-        };
-    }, [activeLanguage]);
+    }, []);
 
     let categoryIndex = categories.map((category: any, index) => {
         let categoryId = index + 1;
@@ -224,7 +207,7 @@ const CreateArticle = () => {
                     </form>
 
                     <h1 className="text-start font-bold text-3xl mt-10 mb-5 capitalize">{t('Content')}</h1>
-                    <div id="vditorCreateArticle" className="vditor mb-20" />
+                    <Editor keyID="vditorCreateArticle" bindVditor={setVd} />
 
                     <form noValidate autoComplete="off">
                         <StyledTextField
