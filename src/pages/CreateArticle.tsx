@@ -194,22 +194,10 @@ const CreateArticle = () => {
                         />
                     </form>
 
-                    <form noValidate autoComplete="off">
-                        <StyledTextField
-                            label={t('Edit Summary')}
-                            variant="outlined"
-                            id="custom-css-outlined-input"
-                            sx={{ width: '70%' }}
-                            value={editSummary}
-                            onChange={handleEditSummary}
-                            multiline
-                        />
-                    </form>
-
                     <h1 className="text-start font-bold text-3xl mt-10 mb-5 capitalize">{t('Content')}</h1>
                     <Editor keyID="vditorCreateArticle" bindVditor={setVd} />
 
-                    <form noValidate autoComplete="off">
+                    <form noValidate autoComplete="off" className='mt-5'>
                         <StyledTextField
                             label={t('Valid Word Count') + '*'}
                             variant="outlined"
@@ -221,6 +209,18 @@ const CreateArticle = () => {
                         <button type="button" className="bg-gray-200 px-4 py-1" onClick={handleAutoCount}>
                             {t('Auto Count')}
                         </button>
+                    </form>
+
+                    <form noValidate autoComplete="off">
+                        <StyledTextField
+                            label={t('Edit Summary')}
+                            variant="outlined"
+                            id="custom-css-outlined-input"
+                            sx={{ width: '70%' }}
+                            value={editSummary}
+                            onChange={handleEditSummary}
+                            multiline
+                        />
                     </form>
 
                     <div className="flex justify-center">
