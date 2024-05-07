@@ -22,5 +22,21 @@ export default {
     "Publish changes": 21,
     "Valid Word Count": 22,
     "Auto Count": 23,
-    "Saving": 24
+    "Saving": 24,
+    "Create new article": 25,
+    "Create new language version": 26,
+    "Category": 27,
+    "Create article": 28,
+    "Create language version": 29,
+    "Article Id": 30,
+    "state": 31,
+    "base MR": 32,
+    "reward": 33,
+    "freeze": 34,
+    "start block": 35,
+    "end block": 36,
+    "editor": 37,
+    "edit summary": 38,
+    "changes": 39,
+    "valid word count": 40
 }

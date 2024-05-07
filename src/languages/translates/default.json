@@ -184,11 +184,139 @@
         ]
     },
     "Saving": {
-        "zh": "节省物",
+        "zh": "保存中",
         "en": "Saving",
-        "jp": "節約",
+        "jp": "保存中",
         "$files": [
             "pages/CreateArticle.tsx"
+        ]
+    },
+    "Create new article": {
+        "zh": "创建新条目",
+        "en": "Create new article",
+        "jp": "新規記事の作成",
+        "$files": [
+            "pages/CategoryPage.jsx"
+        ]
+    },
+    "Create new language version": {
+        "zh": "创建新的语言版本",
+        "en": "Create new language version",
+        "jp": "新しい言語バージョンの作成",
+        "$files": [
+            "pages/CategoryPage.jsx"
+        ]
+    },
+    "Category": {
+        "zh": "类别",
+        "en": "Category",
+        "jp": "カテゴリ",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Create article": {
+        "zh": "创建条目",
+        "en": "Create article",
+        "jp": "記事の作成",
+        "$files": [
+            "pages/CreateArticle.tsx"
+        ]
+    },
+    "Create language version": {
+        "zh": "创建语言版本",
+        "en": "Create language version",
+        "jp": "言語バージョンの作成",
+        "$files": [
+            "pages/CreateLangVersion.tsx"
+        ]
+    },
+    "Article Id": {
+        "zh": "条目Id",
+        "en": "Article Id",
+        "jp": "記事Id",
+        "$files": [
+            "pages/CreateLangVersion.tsx"
+        ]
+    },
+    "state": {
+        "zh": "状态",
+        "en": "state",
+        "jp": "ステータス",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "base MR": {
+        "zh": "基本MR",
+        "en": "base MR",
+        "jp": "基本MR",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "reward": {
+        "zh": "奖励",
+        "en": "reward",
+        "jp": "に報いる",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "freeze": {
+        "zh": "冻结",
+        "en": "freeze",
+        "jp": "とうけつ",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "start block": {
+        "zh": "起始区块",
+        "en": "start block",
+        "jp": "開始ブロック",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "end block": {
+        "zh": "结束区块",
+        "en": "end block",
+        "jp": "エンドブロック",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "editor": {
+        "zh": "编辑者",
+        "en": "editor",
+        "jp": "編集者",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "edit summary": {
+        "zh": "编辑摘要",
+        "en": "edit summary",
+        "jp": "概要の編集",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "changes": {
+        "zh": "修改",
+        "en": "changes",
+        "jp": "へんか",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "valid word count": {
+        "zh": "有效字数",
+        "en": "valid word count",
+        "jp": "有効な文字数",
+        "$files": [
+            "pages/Mr.tsx"
         ]
     }
 }

@@ -35,7 +35,7 @@ const ListMr = ({ mrId, mr }: { mrId: number; mr: Mr }) => (
                     <span>{t('start block')}: {mr.startHeight}</span>
                     <span>{t('end block')}: {mr.endHeight}</span>
                 </p>
-                <p>{t('word count')}: {mr.wordCount}</p>
+                <p>{t('valid word count')}: {mr.wordCount}</p>
                 <p>{t('editor')}: {mr.editor}</p>
                 <p>{t('edit summary')}: {mr.editSummary}</p>
                 <p>
