@@ -10,6 +10,7 @@ import CategoryPage from './pages/CategoryPage';
 import { EditWithParams } from './pages/Edit';
 import CreateArticle from './pages/CreateArticle';
 import CreateLangVersion from './pages/CreateLangVersion';
+import {MrWithParams} from './pages/Mr';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path={'/:lang?'} element={<Home />} />
                     <Route path={'/:lang/a/:id'} element={<ArticleWithParams />} />
                     <Route path={'/:lang/a/:id/edit'} element={<EditWithParams />} />
+                    <Route path={'/:lang/a/:id/mr'} element={<MrWithParams />} />
                     <Route path={'/:lang/categories'} element={<CategoryPage />} />
                     <Route path={'/:lang/createArticle'} element={<CreateArticle />} />
                     <Route path={'/:lang/createLangVersion'} element={<CreateLangVersion />} />

@@ -31,6 +31,21 @@ export async function getArticle(articleId: number, lang: string): Promise<any> 
     return article;
 }
 
+export async function getLangVersion(articleId: number, lang: string): Promise<any> {
+    const { Messages, Error } = await dryrun({
+        process: DEWIKI_PROCESS,
+        tags: [{ name: 'Action', value: 'GetLanguageVersion' }],
+        data: JSON.stringify({ articleId: articleId, lang: lang }),
+    });
+    if (isContainAction(Messages, 'ReceiveLanguageVersion')) {
+        let langVersion = JSON.parse(Messages[0].Data);
+        return langVersion;
+    } else {
+        alert('Error: ' + Error);
+    }
+    return [];
+}
+
 export function getChanges(oldContent: string, newContent: string): string {
     const dmp = new diff_match_patch();
     dmp.Match_Threshold = 0.1;
