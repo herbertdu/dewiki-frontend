@@ -70,7 +70,7 @@ const Stake = () => {
         setLanguage(event.target.value);
     };
 
-    const handleStake = async () => {
+    const handleStakeOrWithdraw = async (confirmStr: string, action: string, resultAction: string) => {
         if (!checkWallet()) {
             return;
         }
@@ -79,13 +79,21 @@ const Stake = () => {
             lang: language,
             quantity: reverseDwk(quantity),
         };
-        if (window.confirm(`${t('data is')}:\n${JSON.stringify(data, null, 2)}\n\n${t('Are you sure to stake')}?`)) {
+        if (window.confirm(`${t('data is')}:\n${JSON.stringify(data, null, 2)}\n\n${confirmStr}?`)) {
             console.log(data);
             setLoading(true);
-            let Messages = await sendMessage('Stake', data, 'Staked');
+            let Messages = await sendMessage(action, data, resultAction);
             setResponse(JSON.parse(Messages[0].Data));
             setVisible(true);
         }
+    };
+
+    const handleStake = async () => {
+        handleStakeOrWithdraw(t('Are you sure to stake'), 'Stake', 'Staked');
+    };
+
+    const handleWithdraw = async () => {
+        handleStakeOrWithdraw(t('Are you sure to withdraw'), 'Unstake', 'Unstaked')
     };
 
     async function fetchData() {
@@ -182,13 +190,15 @@ const Stake = () => {
                 </SimpleTreeView>
             )}
 
-            <h1 className="text-start font-bold text-3xl mt-10 mb-5 md:first-letter:uppercase">{t('stake')}</h1>
+            <h1 className="text-start font-bold text-3xl mt-10 mb-5 md:first-letter:uppercase">
+                {t('stake or withdraw')}
+            </h1>
             {groupOptions}
             {languageOptions}
 
             <form noValidate autoComplete="off" className="mt-5">
                 <StyledTextField
-                    label={t('Stake DWK Quantity') + '*'}
+                    label={t('DWK Quantity') + '*'}
                     variant="outlined"
                     id="custom-css-outlined-input"
                     sx={{ width: '17ch' }}
@@ -200,11 +210,18 @@ const Stake = () => {
 
             <div className="flex justify-center">
                 <button
-                    className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mt-4 mb-2"
+                    className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mt-4 mb-2 mr-4"
                     onClick={handleStake}
                     disabled={loading}
                 >
                     {loading ? `${t('Processing')}...` : `${t('Stake')}`}
+                </button>
+                <button
+                    className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mt-4 mb-2"
+                    onClick={handleWithdraw}
+                    disabled={loading}
+                >
+                    {loading ? `${t('Processing')}...` : `${t('Withdraw')}`}
                 </button>
             </div>
             <Modal title="Stake Success" open={visible} onOk={handleOk} onCancel={handleOk}>
