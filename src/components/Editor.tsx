@@ -22,13 +22,13 @@ const Editor: FC<IVditorEditorProps> = ({ keyID, options, bindVditor, initialVal
         const vditor = new Vditor(keyID, {
             after: () => {
                 vditor.setValue(initialValue);
+                if (!!bindVditor) {
+                    bindVditor(vditor);
+                }
             },
             outline: { enable: true, position: 'left' },
             lang: vditorLang,
         });
-        if (!!bindVditor) {
-            bindVditor(vditor);
-        }
     }, [activeLanguage]);
 
     return <div id={keyID} ref={vditorRef}></div>;

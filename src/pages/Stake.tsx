@@ -121,6 +121,7 @@ const Stake = () => {
     };
 
     useEffect(() => {
+        checkWallet();
         fetchData();
     }, []);
 
