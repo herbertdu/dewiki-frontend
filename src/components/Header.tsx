@@ -22,12 +22,9 @@ const Header = () => {
             <Link to={`/${activeLanguage}/categories`} className="hover:text-indigo-color">
                 <div>{t('Categories')}</div>
             </Link>
-            <a href="#" className="text-black hover:text-indigo-color">
-                {t('About')}
-            </a>
-            <a href="#" className="text-black hover:text-indigo-color">
-                {t('More')}
-            </a>
+            <Link to={`/${activeLanguage}/stake`} className="hover:text-indigo-color">
+                <div>{t('Stake')}</div>
+            </Link>
         </>
     );
 

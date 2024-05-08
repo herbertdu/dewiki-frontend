@@ -29,8 +29,21 @@ export async function sendMessage(action: string, data: any, resultAction: strin
 
     if (resultAction) {
         if (!isContainAction(Messages, resultAction)) {
-            alert('Error: ' + Error);;
+            alert('Error: ' + Error);
         }
     }
     return Messages;
+}
+
+export async function getAddr() {
+    if (!(window && window.arweaveWallet)) {
+        return '';
+    }
+
+    const permissions = await window.arweaveWallet.getPermissions();
+    if (permissions.includes('ACCESS_ADDRESS')) {
+        const address = await window.arweaveWallet.getActiveAddress();
+        return address;
+    }
+    return '';
 }

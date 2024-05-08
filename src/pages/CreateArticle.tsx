@@ -18,6 +18,7 @@ import { getChanges, countWords } from '../utils/article';
 import StyledTextField from '../components/Common';
 import Vditor from 'vditor';
 import Editor from '../components/Editor';
+import { getGroups, Group } from '../utils/dao';
 
 const CreateArticle = () => {
     const { t } = useVoerkaI18n();
@@ -29,11 +30,12 @@ const CreateArticle = () => {
     const [open, setOpen] = useState(false);
     const [response, setResponse] = useState({ articleId: 0, articleData: {} });
     const [title, setTitle] = useState('');
-    const [group, setGroup] = useState(0);
     const [tags, setTags] = useState('');
     const [wordCount, setWordCount] = useState(0);
     const [editSummary, setEditSummary] = useState('');
     const [vd, setVd] = useState<Vditor>();
+    const [groups, setGroups] = useState<Group[]>([]);
+    const [group, setGroup] = useState('');
 
     const handleChange = (event: SelectChangeEvent<string>) => {
         setCategory(event.target.value);
@@ -45,10 +47,6 @@ const CreateArticle = () => {
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value);
-    };
-
-    const handleGroupChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setGroup(parseInt(event.target.value));
     };
 
     const handleTagsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +74,7 @@ const CreateArticle = () => {
         let tagsParsed: string[] = tags.split(',');
         let changes = getChanges('', vd?.getValue() || '');
         let data = {
-            group: group,
+            group: parseInt(group),
             enTitle: title,
             category: category,
             tags: tagsParsed,
@@ -102,6 +100,9 @@ const CreateArticle = () => {
             checkWallet();
             let categories = await getCategories();
             setCategories(categories);
+
+            const feGroups = await getGroups();
+            setGroups(feGroups);
         }
         fetch();
     }, []);
@@ -127,6 +128,29 @@ const CreateArticle = () => {
                         value={category.categoryId}
                         key={category.categoryId}
                     >{`${category.categoryId} - ${category.categoryName}`}</MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    );
+
+    const handleGroup = (event: SelectChangeEvent<string>) => {
+        setGroup(event.target.value);
+    };
+    const groupOptions = (
+        <FormControl sx={{ width: '25ch', marginRight: '20px', marginBottom: '20px' }}>
+            <InputLabel id="demo-simple-select-label">{t('group') + '*'}</InputLabel>
+            <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={group}
+                label="group"
+                onChange={handleGroup}
+                error={group === ''}
+            >
+                {groups.map((group: any) => (
+                    <MenuItem value={group.info.groupId.toString()} key={group.info.name}>
+                        {`${group.info.groupId} - ${group.info.name}`}
+                    </MenuItem>
                 ))}
             </Select>
         </FormControl>
@@ -174,16 +198,9 @@ const CreateArticle = () => {
 
                     {categoryOptions}
 
+                    {groupOptions}
+
                     <form noValidate autoComplete="off">
-                        <StyledTextField
-                            label={t('Group') + '*'}
-                            variant="outlined"
-                            id="custom-css-outlined-input"
-                            sx={{ width: '8ch' }}
-                            value={group}
-                            onChange={handleGroupChange}
-                            error={group === 0}
-                        />
                         <StyledTextField
                             label={t('Tags')}
                             variant="outlined"
@@ -197,7 +214,7 @@ const CreateArticle = () => {
                     <h1 className="text-start font-bold text-3xl mt-10 mb-5 capitalize">{t('Content')}</h1>
                     <Editor keyID="vditorCreateArticle" bindVditor={setVd} />
 
-                    <form noValidate autoComplete="off" className='mt-5'>
+                    <form noValidate autoComplete="off" className="mt-5">
                         <StyledTextField
                             label={t('Valid Word Count') + '*'}
                             variant="outlined"

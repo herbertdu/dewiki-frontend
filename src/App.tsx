@@ -11,6 +11,7 @@ import { EditWithParams } from './pages/Edit';
 import CreateArticle from './pages/CreateArticle';
 import CreateLangVersion from './pages/CreateLangVersion';
 import {MrWithParams} from './pages/Mr';
+import Stake from './pages/Stake';
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path={'/:lang/categories'} element={<CategoryPage />} />
                     <Route path={'/:lang/createArticle'} element={<CreateArticle />} />
                     <Route path={'/:lang/createLangVersion'} element={<CreateLangVersion />} />
+                    <Route path={'/:lang/stake'} element={<Stake />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </HashRouter>
