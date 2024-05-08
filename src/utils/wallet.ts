@@ -1,20 +1,5 @@
 import { t } from "../languages";
 
-// export async function checkWallet() {
-//     if (!(window && window.arweaveWallet)) {
-//         alert(
-//             'Sign in method not available in this browser. Please use a different browser or install the ArConnect extension.'
-//         );
-//         return false;
-//     }
-//     const permissions = await window.arweaveWallet.getPermissions();
-//     if (permissions.length <= 0) {
-//         alert(t('Sign in please'));
-//         return false;
-//     }
-//     return true;
-// }
-
 export async function checkWallet() {
     function showMessage(message: string) {
         const messageElement = document.createElement('div');

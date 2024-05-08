@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getLangVersion } from '../utils/article';
 import processParams from '../utils/component';
-import { t } from '../languages';
+import { useVoerkaI18n } from '@voerkai18n/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -18,39 +18,59 @@ interface Mr {
     changes: string;
 }
 
-const ListMr = ({ mrId, mr }: { mrId: number; mr: Mr }) => (
-    <div className="border-b border-gray-200 py-4">
-        <div className="flex justify-between items-center">
-            <div>
-                <p className="font-bold">MR Id: {mrId}</p>
-                <p className="space-x-3">
-                    <span>{t('state')}: {mr.state}</span>
-                    <span>{t('base MR')}: {mr.baseMr}</span>
-                </p>
-                <p className="space-x-3">
-                    <span>{t('reward')}: {parseInt(mr.reward) / 1e12}</span>
-                    <span>{t('freeze')}: {parseInt(mr.freeze) / 1e12}</span>
-                </p>
-                <p className="space-x-3">
-                    <span>{t('start block')}: {mr.startHeight}</span>
-                    <span>{t('end block')}: {mr.endHeight}</span>
-                </p>
-                <p>{t('valid word count')}: {mr.wordCount}</p>
-                <p>{t('editor')}: {mr.editor}</p>
-                <p>{t('edit summary')}: {mr.editSummary}</p>
-                <p>
-                    {t('changes')}:
-                    <br />
-                    {decodeURIComponent(mr.changes).slice(0, 200)}
-                </p>
-            </div>
-        </div>
-    </div>
-);
-
 const Mr = ({ articleId, lang }: { articleId: number; lang: string }) => {
+    const { t } = useVoerkaI18n();
     const [mrs, setMrs] = useState<Mr[]>([]);
     const [title, setTitle] = useState('');
+
+    const ListMr = ({ mrId, mr }: { mrId: number; mr: Mr }) => (
+        <div className="border-b border-gray-200 py-4">
+            <div className="flex justify-between items-center">
+                <div>
+                    <p className="font-bold">MR Id: {mrId}</p>
+                    <p className="space-x-3">
+                        <span>
+                            {t('state')}: {mr.state}
+                        </span>
+                        <span>
+                            {t('base MR')}: {mr.baseMr}
+                        </span>
+                    </p>
+                    <p className="space-x-3">
+                        <span>
+                            {t('reward')}: {parseInt(mr.reward) / 1e12}
+                        </span>
+                        <span>
+                            {t('freeze')}: {parseInt(mr.freeze) / 1e12}
+                        </span>
+                    </p>
+                    <p className="space-x-3">
+                        <span>
+                            {t('start block')}: {mr.startHeight}
+                        </span>
+                        <span>
+                            {t('end block')}: {mr.endHeight}
+                        </span>
+                    </p>
+                    <p>
+                        {t('valid word count')}: {mr.wordCount}
+                    </p>
+                    <p>
+                        {t('editor')}: {mr.editor}
+                    </p>
+                    <p>
+                        {t('edit summary')}: {mr.editSummary}
+                    </p>
+                    <p>
+                        {t('changes')}:
+                        <br />
+                        {decodeURIComponent(mr.changes).slice(0, 200)}
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+
     useEffect(() => {
         const fetchMrs = async () => {
             let langVersion = await getLangVersion(articleId, lang);

@@ -15,22 +15,6 @@
             "components/Header.tsx"
         ]
     },
-    "About": {
-        "zh": "关于",
-        "en": "About",
-        "jp": "について",
-        "$files": [
-            "components/Header.tsx"
-        ]
-    },
-    "More": {
-        "zh": "更多",
-        "en": "More",
-        "jp": "詳細",
-        "$files": [
-            "components/Header.tsx"
-        ]
-    },
     "Sign In": {
         "zh": "登录",
         "en": "Sign In",
@@ -103,14 +87,6 @@
             "pages/CreateArticle.tsx"
         ]
     },
-    "Group": {
-        "zh": "组",
-        "en": "Group",
-        "jp": "グループ化",
-        "$files": [
-            "pages/CreateArticle.tsx"
-        ]
-    },
     "Tags": {
         "zh": "标签",
         "en": "Tags",
@@ -157,14 +133,6 @@
         "jp": "編集",
         "$files": [
             "pages/CreateArticle.tsx"
-        ]
-    },
-    "Publish changes": {
-        "zh": "发布更改",
-        "en": "Publish changes",
-        "jp": "変更のパブリッシュ",
-        "$files": [
-            "pages/Edit.tsx"
         ]
     },
     "Valid Word Count": {
@@ -317,6 +285,64 @@
         "jp": "有効な文字数",
         "$files": [
             "pages/Mr.tsx"
+        ]
+    },
+    "Stake": {
+        "zh": "质押",
+        "en": "Stake",
+        "jp": "抵当に入れる",
+        "$files": [
+            "components/Header.tsx",
+            "pages/Stake.tsx"
+        ]
+    },
+    "group": {
+        "zh": "组",
+        "en": "group",
+        "jp": "グループ化",
+        "$files": [
+            "pages/CreateArticle.tsx",
+            "pages/Stake.tsx"
+        ]
+    },
+    "Are you sure to stake": {
+        "zh": "你确定要质押吗",
+        "en": "Are you sure to stake",
+        "jp": "本当に賭けますか。",
+        "$files": [
+            "pages/Stake.tsx"
+        ]
+    },
+    "staked details": {
+        "zh": "已质押详情",
+        "en": "staked details",
+        "jp": "杭の詳細",
+        "$files": [
+            "pages/Stake.tsx"
+        ]
+    },
+    "stake": {
+        "zh": "质押",
+        "en": "stake",
+        "jp": "抵当に入れる",
+        "$files": [
+            "pages/Stake.tsx"
+        ]
+    },
+    "Stake DWK Quantity": {
+        "zh": "质押DWK数量",
+        "en": "Stake DWK Quantity",
+        "jp": "抵当に入れる数",
+        "$files": [
+            "pages/Stake.tsx"
+        ]
+    },
+    "Processing": {
+        "zh": "处理中",
+        "en": "Processing",
+        "jp": "処理中です",
+        "$files": [
+            "pages/Stake.tsx"
         ]
     }
 }

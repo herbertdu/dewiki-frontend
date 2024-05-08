@@ -7,7 +7,7 @@ import { getAddr, sendMessage } from '../utils/message';
 
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
-import { t } from '../languages';
+import { useVoerkaI18n } from '@voerkai18n/react';
 
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -53,6 +53,7 @@ const GroupDetails = ({ group, groups, stakerId }: { group: Group; groups: Group
 };
 
 const Stake = () => {
+    const { t } = useVoerkaI18n();
     const [balance, setBalance] = useState('');
     const [groups, setGroups] = useState<Group[]>([]);
     const [address, setAddress] = useState('');
