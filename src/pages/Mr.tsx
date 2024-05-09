@@ -4,6 +4,7 @@ import processParams from '../utils/component';
 import { useVoerkaI18n } from '@voerkai18n/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { Link } from 'react-router-dom';
 
 interface Mr {
     state: string;
@@ -80,13 +81,17 @@ const Mr = ({ articleId, lang }: { articleId: number; lang: string }) => {
 
         fetchMrs();
     }, [articleId, lang]);
-    console.log(mrs);
 
     return (
         <>
             <Header />
             <div className="max-w-7xl mx-auto p-4">
-                <h1 className="text-2xl font-bold mb-4">{title} MR:</h1>
+                <div className="text-2xl font-semibold text-start mb-10 capitalize">
+                    <Link className=" text-gray-500 underline" to={`/${lang}/a/${articleId}`}>
+                        <span>{title}</span>
+                    </Link>
+                    <span> MR:</span>
+                </div>
                 {mrs && [...mrs].reverse().map((mr, index) => <ListMr mrId={mrs.length - index} mr={mr} />)}
             </div>
             <Footer />

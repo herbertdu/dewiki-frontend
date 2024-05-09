@@ -19,10 +19,16 @@ const Header = () => {
 
     const linker = (
         <>
-            <Link to={`/${activeLanguage}/categories`} className="hover:text-indigo-color">
+            <Link
+                to={`/${activeLanguage}/categories`}
+                className="hover:text-indigo-color text-lg font-semibold text-gray-600"
+            >
                 <div>{t('Categories')}</div>
             </Link>
-            <Link to={`/${activeLanguage}/stake`} className="hover:text-indigo-color">
+            <Link
+                to={`/${activeLanguage}/stake`}
+                className="hover:text-indigo-color text-lg font-semibold  text-gray-600"
+            >
                 <div>{t('Stake')}</div>
             </Link>
         </>

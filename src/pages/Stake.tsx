@@ -80,7 +80,6 @@ const Stake = () => {
             quantity: reverseDwk(quantity),
         };
         if (window.confirm(`${t('data is')}:\n${JSON.stringify(data, null, 2)}\n\n${confirmStr}?`)) {
-            console.log(data);
             setLoading(true);
             let Messages = await sendMessage(action, data, resultAction);
             setResponse(JSON.parse(Messages[0].Data));
