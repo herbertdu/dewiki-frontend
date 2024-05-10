@@ -26,6 +26,21 @@ export interface Group {
     daos: Record<string, Dao>;
 }
 
+export async function getAllStakeInfo(addr: string): Promise<any> {
+    const { Messages, Error } = await dryrun({
+        process: DEWIKI_PROCESS,
+        tags: [{ name: 'Action', value: 'AllStakeInfo' }],
+        data: JSON.stringify({ target: addr }),
+    });
+    if (isContainAction(Messages, 'ReceiveAllStakeInfo')) {
+        let allStakeInfo = JSON.parse(Messages[0].Data);
+        return allStakeInfo;
+    } else {
+        alert('Error: ' + Error);
+    }
+    return [];
+}
+
 export async function getGroups(): Promise<any> {
     const { Messages, Error } = await dryrun({
         process: DEWIKI_PROCESS,
@@ -42,4 +57,20 @@ export async function getGroups(): Promise<any> {
         alert('Error: ' + Error);
     }
     return [];
+}
+
+export async function getGroupsAndStakeInfo(addr: string): Promise<any> {
+    let allStakeInfo = await getAllStakeInfo(addr);
+    let groups = await getGroups();
+    for (let group of groups) {
+        for (let daoName in group.daos) {
+            let daoId = `${group.info.groupId}-${daoName}`
+            let stakeInfo = allStakeInfo[daoId];
+            group.daos[daoName].stakers = {};
+            if (stakeInfo) {
+                group.daos[daoName].stakers[addr] = stakeInfo;
+            }
+        }
+    }
+    return groups;
 }

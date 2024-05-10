@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { getDwkBalance, formatDwk, reverseDwk, formatLockDetail, formatStakeInfo } from '../utils/fund';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getGroups, Staker, Dao, Group } from '../utils/dao';
+import { getGroupsAndStakeInfo, Staker, Dao, Group } from '../utils/dao';
 import { getAddr, sendMessage } from '../utils/message';
+import { LANGS } from '../constants/env';
 
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
@@ -96,17 +97,17 @@ const Stake = () => {
     };
 
     async function fetchData() {
+        const address = await getAddr();
+        setAddress(address);
+
         const bal = await getDwkBalance();
         setBalance(bal);
 
-        const feGroups = await getGroups();
+        const feGroups = await getGroupsAndStakeInfo(address);
         setGroups(feGroups);
 
         let expanded = Array.from({ length: feGroups.length }, (_, i) => (i + 1).toString());
         setExpandedItemIds(expanded);
-
-        const address = await getAddr();
-        setAddress(address);
     }
 
     const handleOk = () => {
@@ -164,7 +165,7 @@ const Stake = () => {
                 onChange={handleLanguage}
                 error={language === ''}
             >
-                {languagesIndex.map((lang: any) => (
+                {LANGS.map((lang: any) => (
                     <MenuItem value={lang} key={lang}>
                         {lang}
                     </MenuItem>
