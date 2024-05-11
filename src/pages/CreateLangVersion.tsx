@@ -17,6 +17,7 @@ import { getChanges, countWords } from '../utils/article';
 import StyledTextField from '../components/Common';
 import Vditor from 'vditor';
 import Editor from '../components/Editor';
+import { TRANSLATION_PROGRESS } from '../constants/env';
 
 const CreateLangVersion = () => {
     const { t, languages } = useVoerkaI18n();
@@ -31,9 +32,14 @@ const CreateLangVersion = () => {
     const [editSummary, setEditSummary] = useState('');
     const [language, setLanguage] = useState('');
     const [vd, setVd] = useState<Vditor>();
+    const [translationProgress, setTranslationProgress] = useState('');
 
     const handleLanguage = (event: SelectChangeEvent<string>) => {
         setLanguage(event.target.value);
+    };
+
+    const handleTranslationProgress = (event: SelectChangeEvent<string>) => {
+        setTranslationProgress(event.target.value);
     };
 
     const handleTooltipClick = () => {
@@ -80,6 +86,7 @@ const CreateLangVersion = () => {
             wordCount: wordCount,
             editSummary: editSummary,
             changes: changes,
+            translationProgress: translationProgress
         };
         let confirmData = JSON.parse(JSON.stringify(data));
         confirmData.changes = decodeURIComponent(confirmData.changes);
@@ -121,6 +128,28 @@ const CreateLangVersion = () => {
                         lang.name !== 'en' && (
                             <MenuItem value={lang.name} key={lang.name}>
                                 {`${lang.name} - ${lang.title}`}
+                            </MenuItem>
+                        )
+                )}
+            </Select>
+        </FormControl>
+    );
+
+    const translationProgressOptions = (
+        <FormControl sx={{ width: '23ch', marginRight: '20px', marginBottom: '20px' }}>
+            <InputLabel id="demo-simple-select-label">{t('translation progress') + '*'}</InputLabel>
+            <Select
+                id="demo-simple-select"
+                value={translationProgress}
+                label="Language"
+                onChange={handleTranslationProgress}
+                error={language === ''}
+            >
+                {TRANSLATION_PROGRESS.map(
+                    (progress: any) =>
+                        (
+                            <MenuItem value={progress} key={progress}>
+                                {`${progress}`}
                             </MenuItem>
                         )
                 )}
@@ -184,7 +213,7 @@ const CreateLangVersion = () => {
                     <h1 className="text-start font-bold text-3xl mt-10 mb-5 capitalize">{t('Content')}</h1>
                     <Editor keyID="vditorCreateLangVersion" bindVditor={setVd} />
 
-                    <form noValidate autoComplete="off" className='mt-5'>
+                    <form noValidate autoComplete="off" className="mt-5">
                         <StyledTextField
                             label={t('Valid Word Count') + '*'}
                             variant="outlined"
@@ -197,6 +226,8 @@ const CreateLangVersion = () => {
                             {t('Auto Count')}
                         </button>
                     </form>
+
+                    {translationProgressOptions}
 
                     <form noValidate autoComplete="off">
                         <StyledTextField

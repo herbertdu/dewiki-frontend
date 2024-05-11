@@ -3,14 +3,15 @@ import { DEWIKI_PROCESS } from '../constants/env';
 import { isContainAction } from './message';
 import { diff_match_patch } from 'diff-match-patch';
 
-function mergeMrs(langVersion: { merged: any; mrs: { [x: string]: { changes: any } } }, article: any) {
+function mergeMrs(langVersion: { mrs: { [x: string]: { changes: any } } }, article: any) {
     const dmp = new diff_match_patch();
     dmp.Match_Threshold = 0.1;
     let content = '';
     let latestMr = 0;
-    for (let mrId of langVersion.merged) {
-        let changes = langVersion.mrs[mrId - 1].changes;
+    for (let idx in langVersion.mrs) {
+        let changes = langVersion.mrs[idx].changes;
         content = dmp.patch_apply(dmp.patch_fromText(changes), content)[0];
+        let mrId = parseInt(idx) + 1
         latestMr = mrId;
     }
     article.latestMr = latestMr
@@ -25,7 +26,7 @@ export async function getArticle(articleId: number, lang: string): Promise<any> 
     });
     let article = { title: '', content: '', latestMr: 0 };
     if (isContainAction(Messages, 'ReceiveLanguageVersion')) {
-        let langVersion = JSON.parse(Messages[0].Data);
+        let langVersion = JSON.parse(Messages[0].Data).versionData;
         article.title = langVersion.title;
         article.content = mergeMrs(langVersion, article);
     } else {
@@ -41,7 +42,7 @@ export async function getLangVersion(articleId: number, lang: string): Promise<a
         data: JSON.stringify({ articleId: articleId, lang: lang }),
     });
     if (isContainAction(Messages, 'ReceiveLanguageVersion')) {
-        let langVersion = JSON.parse(Messages[0].Data);
+        let langVersion = JSON.parse(Messages[0].Data).versionData;
         return langVersion;
     } else {
         alert('Error: ' + Error);

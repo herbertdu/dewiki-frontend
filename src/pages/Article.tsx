@@ -142,7 +142,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
                         <span className='mr-3'>{ t("edit") }</span>
                     </Link>
                     <Link to={`/${lang}/a/${articleId}/mr`} >
-                        <span>MR</span>
+                        <span>{ t("history") }</span>
                     </Link>
                 </div>
                 <Grid container justifyContent="center" alignItems="center">

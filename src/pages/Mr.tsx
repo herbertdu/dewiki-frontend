@@ -5,6 +5,8 @@ import { useVoerkaI18n } from '@voerkai18n/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import { formatDwk } from '../utils/fund';
+import { formatTimestamp } from '../utils/date';
 
 interface Mr {
     state: string;
@@ -17,6 +19,13 @@ interface Mr {
     wordCount: number;
     editSummary: string;
     changes: string;
+    editType: string;
+    translationProgress: string;
+    endTranslatedHeight: number;
+    freezeForBeTranslated: string;
+    createTimestamp: number;
+    appeals: any[];
+    guaranteedId: number;
 }
 
 const Mr = ({ articleId, lang }: { articleId: number; lang: string }) => {
@@ -36,13 +45,42 @@ const Mr = ({ articleId, lang }: { articleId: number; lang: string }) => {
                         <span>
                             {t('base MR')}: {mr.baseMr}
                         </span>
+                        <span>
+                            {t('edit type')}: {mr.editType}
+                        </span>
                     </p>
                     <p className="space-x-3">
                         <span>
-                            {t('reward')}: {parseInt(mr.reward) / 1e12}
+                            {t('create time')}: {formatTimestamp(mr.createTimestamp)}
+                        </span>
+                    </p>
+                    <p className="space-x-3">
+                        <span>
+                            {t('translation progress')}: {mr.translationProgress}
                         </span>
                         <span>
-                            {t('freeze')}: {parseInt(mr.freeze) / 1e12}
+                            {t('end translated block')}: {mr.endTranslatedHeight}
+                        </span>
+                    </p>
+                    <p className="space-x-3">
+                        <span>
+                            {t('appeals')}: {mr.appeals}
+                        </span>
+                        <span>
+                            {t('guaranteed Id')}: {mr.guaranteedId}
+                        </span>
+                    </p>
+                    <p className="space-x-3">
+                        <span>
+                            {t('reward')}: {formatDwk(mr.reward)}
+                        </span>
+                        <span>
+                            {t('freeze')}: {formatDwk(mr.freeze)}
+                        </span>
+                    </p>
+                    <p className="space-x-3">
+                        <span>
+                            {t('freeze for be translated')}: {formatDwk(mr.freezeForBeTranslated)}
                         </span>
                     </p>
                     <p className="space-x-3">
