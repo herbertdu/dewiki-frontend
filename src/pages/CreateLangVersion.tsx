@@ -17,7 +17,7 @@ import { getChanges, countWords } from '../utils/article';
 import StyledTextField from '../components/Common';
 import Vditor from 'vditor';
 import Editor from '../components/Editor';
-import { TRANSLATION_PROGRESS } from '../constants/env';
+import { TranslationProgress } from '../components/CustomMui';
 
 const CreateLangVersion = () => {
     const { t, languages } = useVoerkaI18n();
@@ -86,7 +86,7 @@ const CreateLangVersion = () => {
             wordCount: wordCount,
             editSummary: editSummary,
             changes: changes,
-            translationProgress: translationProgress
+            translationProgress: translationProgress,
         };
         let confirmData = JSON.parse(JSON.stringify(data));
         confirmData.changes = decodeURIComponent(confirmData.changes);
@@ -128,28 +128,6 @@ const CreateLangVersion = () => {
                         lang.name !== 'en' && (
                             <MenuItem value={lang.name} key={lang.name}>
                                 {`${lang.name} - ${lang.title}`}
-                            </MenuItem>
-                        )
-                )}
-            </Select>
-        </FormControl>
-    );
-
-    const translationProgressOptions = (
-        <FormControl sx={{ width: '23ch', marginRight: '20px', marginBottom: '20px' }}>
-            <InputLabel id="demo-simple-select-label">{t('translation progress') + '*'}</InputLabel>
-            <Select
-                id="demo-simple-select"
-                value={translationProgress}
-                label="Language"
-                onChange={handleTranslationProgress}
-                error={language === ''}
-            >
-                {TRANSLATION_PROGRESS.map(
-                    (progress: any) =>
-                        (
-                            <MenuItem value={progress} key={progress}>
-                                {`${progress}`}
                             </MenuItem>
                         )
                 )}
@@ -227,7 +205,10 @@ const CreateLangVersion = () => {
                         </button>
                     </form>
 
-                    {translationProgressOptions}
+                    <TranslationProgress
+                        translationProgress={translationProgress}
+                        handleTranslationProgress={handleTranslationProgress}
+                    />
 
                     <form noValidate autoComplete="off">
                         <StyledTextField

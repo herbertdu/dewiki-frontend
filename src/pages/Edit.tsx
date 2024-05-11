@@ -11,6 +11,12 @@ import { Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import { sendMessage } from '../utils/message';
 import StyledTextField from '../components/Common';
+import { EDIT_TYPE } from '../constants/env';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import { TranslationProgress } from '../components/CustomMui';
 
 interface EditProps {
     articleId: number;
@@ -26,6 +32,8 @@ const Edit: FC<EditProps> = (props) => {
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
     const [response, setResponse] = useState({ mrId: 0, mrData: {} });
+    const [editType, setEditType] = useState('');
+    const [translationProgress, setTranslationProgress] = useState('');
 
     useEffect(() => {
         const fetchArticle = async () => {
@@ -37,6 +45,14 @@ const Edit: FC<EditProps> = (props) => {
         };
         fetchArticle();
     }, [props.articleId, props.lang]);
+
+    const handleEditType = (event: SelectChangeEvent<string>) => {
+        setEditType(event.target.value);
+    };
+
+    const handleTranslationProgress = (event: SelectChangeEvent<string>) => {
+        setTranslationProgress(event.target.value);
+    };
 
     const handleOk = () => {
         setVisible(false);
@@ -79,6 +95,8 @@ const Edit: FC<EditProps> = (props) => {
             baseMr: article.latestMr,
             changes: changes,
             editSummary: editSummary,
+            editType: editType,
+            translationProgress: translationProgress,
         };
         let confirmData = JSON.parse(JSON.stringify(data));
         confirmData.changes = decodeURIComponent(confirmData.changes);
@@ -93,12 +111,33 @@ const Edit: FC<EditProps> = (props) => {
         }
     };
 
+    const editTypeOptions = (
+        <FormControl sx={{ width: '18ch', marginRight: '20px', marginBottom: '20px' }}>
+            <InputLabel id="demo-simple-select-label">{t('edit type') + '*'}</InputLabel>
+            <Select
+                id="demo-simple-select"
+                value={editType}
+                label="Language"
+                onChange={handleEditType}
+                error={editType === ''}
+            >
+                {EDIT_TYPE.map((value: any) => (
+                    <MenuItem value={value} key={value}>
+                        {`${value}`}
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    );
+
     return (
         <div>
             <Header />
             <h1 className="text-center font-bold text-5xl mb-5 capitalize">{article.title}</h1>
 
-            {article.content !== 'Loading...' && <Editor keyID={editorId} bindVditor={setVd} initialValue={article.content} />}
+            {article.content !== 'Loading...' && (
+                <Editor keyID={editorId} bindVditor={setVd} initialValue={article.content} />
+            )}
 
             <form noValidate autoComplete="off" className="mt-5">
                 <StyledTextField
@@ -113,6 +152,12 @@ const Edit: FC<EditProps> = (props) => {
                     {t('Auto Count')}
                 </button>
             </form>
+
+            {editTypeOptions}
+            {editType === 'translate' && <TranslationProgress
+                translationProgress={translationProgress}
+                handleTranslationProgress={handleTranslationProgress}
+            />}
 
             <form noValidate autoComplete="off">
                 <StyledTextField
@@ -137,9 +182,12 @@ const Edit: FC<EditProps> = (props) => {
             </div>
             <Modal title="Edit Success" open={visible} onOk={handleOk} onCancel={handleOk}>
                 <div className="text-lg text-gray-500 font-semibold text-center">MR Id: {response?.mrId}</div>
-                <div className="text-lg text-gray-500 underline font-semibold text-center mb-10">
+                <div className="text-lg text-gray-500 underline font-semibold text-center mb-10 capitalize">
                     <Link to={`/${props.lang}/a/${props.articleId}/mr`}>
-                        <div>{t('View')}</div>
+                        <div>{t('view MR')}</div>
+                    </Link>
+                    <Link to={`/${props.lang}/a/${props.articleId}`}>
+                        <div>{t('view article')}</div>
                     </Link>
                 </div>
             </Modal>
