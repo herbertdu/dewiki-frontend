@@ -39,7 +39,20 @@ export default {
     "group": 38,
     "Are you sure to stake": 39,
     "staked details": 40,
-    "stake": 41,
-    "Stake DWK Quantity": 42,
-    "Processing": 43
+    "Processing": 41,
+    "translation progress*": 42,
+    "history": 43,
+    "edit type": 44,
+    "view MR": 45,
+    "view article": 46,
+    "create time": 47,
+    "translation progress": 48,
+    "end translated block": 49,
+    "appeals": 50,
+    "guaranteed Id": 51,
+    "freeze for be translated": 52,
+    "Are you sure to withdraw": 53,
+    "stake or withdraw": 54,
+    "DWK Quantity": 55,
+    "Withdraw": 56
 }

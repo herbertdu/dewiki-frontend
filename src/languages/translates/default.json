@@ -321,26 +321,131 @@
             "pages/Stake.tsx"
         ]
     },
-    "stake": {
-        "zh": "质押",
-        "en": "stake",
-        "jp": "抵当に入れる",
-        "$files": [
-            "pages/Stake.tsx"
-        ]
-    },
-    "Stake DWK Quantity": {
-        "zh": "质押DWK数量",
-        "en": "Stake DWK Quantity",
-        "jp": "抵当に入れる数",
-        "$files": [
-            "pages/Stake.tsx"
-        ]
-    },
     "Processing": {
         "zh": "处理中",
         "en": "Processing",
         "jp": "処理中です",
+        "$files": [
+            "pages/Stake.tsx"
+        ]
+    },
+    "translation progress*": {
+        "zh": "翻译进度*",
+        "en": "translation progress*",
+        "jp": "翻訳の進行状況*",
+        "$files": [
+            "components/CustomMui.tsx"
+        ]
+    },
+    "history": {
+        "zh": "历史",
+        "en": "history",
+        "jp": "履歴",
+        "$files": [
+            "pages/Article.tsx"
+        ]
+    },
+    "edit type": {
+        "zh": "编辑类型",
+        "en": "edit type",
+        "jp": "タイプの編集",
+        "$files": [
+            "pages/Edit.tsx",
+            "pages/Mr.tsx"
+        ]
+    },
+    "view MR": {
+        "zh": "查看MR",
+        "en": "view MR",
+        "jp": "MRの表示",
+        "$files": [
+            "pages/Edit.tsx"
+        ]
+    },
+    "view article": {
+        "zh": "查看文章",
+        "en": "view article",
+        "jp": "記事の表示",
+        "$files": [
+            "pages/Edit.tsx"
+        ]
+    },
+    "create time": {
+        "zh": "创建时间",
+        "en": "create time",
+        "jp": "作成時間",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "translation progress": {
+        "zh": "翻译进度",
+        "en": "translation progress",
+        "jp": "翻訳の進行状況",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "end translated block": {
+        "zh": "翻译结束时间",
+        "en": "end translated block",
+        "jp": "翻译終了",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "appeals": {
+        "zh": "上诉",
+        "en": "appeals",
+        "jp": "上訴する",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "guaranteed Id": {
+        "zh": "上诉Id",
+        "en": "guaranteed Id",
+        "jp": "上訴Id",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "freeze for be translated": {
+        "zh": "为被翻译冻结",
+        "en": "freeze for be translated",
+        "jp": "翻訳待ちの凍結",
+        "$files": [
+            "pages/Mr.tsx"
+        ]
+    },
+    "Are you sure to withdraw": {
+        "zh": "你确定要赎回吗",
+        "en": "Are you sure to withdraw",
+        "jp": "本当に辞めますか。",
+        "$files": [
+            "pages/Stake.tsx"
+        ]
+    },
+    "stake or withdraw": {
+        "zh": "质押或赎回",
+        "en": "stake or withdraw",
+        "jp": "株式取得または脱退",
+        "$files": [
+            "pages/Stake.tsx"
+        ]
+    },
+    "DWK Quantity": {
+        "zh": "DWK数量",
+        "en": "DWK Quantity",
+        "jp": "DWK数",
+        "$files": [
+            "pages/Stake.tsx"
+        ]
+    },
+    "Withdraw": {
+        "zh": "赎回",
+        "en": "Withdraw",
+        "jp": "退却",
         "$files": [
             "pages/Stake.tsx"
         ]
