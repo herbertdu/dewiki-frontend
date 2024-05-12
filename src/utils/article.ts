@@ -3,9 +3,30 @@ import { DEWIKI_PROCESS } from '../constants/env';
 import { isContainAction } from './message';
 import { diff_match_patch } from 'diff-match-patch';
 
+export interface MrData {
+    state: string;
+    baseMr: number;
+    editor: string;
+    reward: string;
+    freeze: string;
+    startHeight: number;
+    endHeight: number;
+    wordCount: number;
+    editSummary: string;
+    changes: string;
+    editType: string;
+    translationProgress: string;
+    endTranslatedHeight: number;
+    freezeForBeTranslated: string;
+    createTimestamp: number;
+    appeals: number[];
+    guaranteedId: number;
+}
+
+const dmp = new diff_match_patch();
+dmp.Match_Threshold = 0.1;
+
 function mergeMrs(langVersion: { mrs: { [x: string]: { changes: any } } }, article: any) {
-    const dmp = new diff_match_patch();
-    dmp.Match_Threshold = 0.1;
     let content = '';
     let latestMr = 0;
     for (let idx in langVersion.mrs) {
@@ -67,4 +88,21 @@ export function countWords(str: string, lang: string = 'en'): number {
         return str.length - 1;
     }
     return 0;
+}
+
+export function getOldAndNewContent(mrId: number, mrs:MrData[]) {
+    if (mrs.length === 0) {
+        return { oldContent: '', newContent: '' };
+    }
+    let oldContent = '';
+    for (let idx in mrs) {
+        let changes = mrs[idx].changes;
+        oldContent = dmp.patch_apply(dmp.patch_fromText(changes), oldContent)[0];
+        let mergedMrId = parseInt(idx) + 1;
+        if (mergedMrId === (mrId - 1)) {
+            break
+        }
+    }
+    let newContent = dmp.patch_apply(dmp.patch_fromText(mrs[mrId - 1].changes), oldContent)[0];
+    return { oldContent, newContent };
 }

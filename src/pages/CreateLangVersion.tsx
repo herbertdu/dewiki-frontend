@@ -8,7 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import { sendMessage } from '../utils/message';
 import { checkWallet } from '../utils/wallet';
 import { Modal } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';

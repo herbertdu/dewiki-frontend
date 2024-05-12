@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import Vditor from 'vditor';
 import { countWords, getArticle, getChanges } from '../utils/article';
-import processParams from '../utils/component';
+import process2Params from '../utils/component';
 import Header from '../components/Header';
 import { useVoerkaI18n } from '@voerkai18n/react';
 import Footer from '../components/Footer';
@@ -103,7 +103,6 @@ const Edit: FC<EditProps> = (props) => {
         if (
             window.confirm(`${t('data is')}:\n${JSON.stringify(confirmData, null, 2)}\n\n${t('Are you sure to save')}?`)
         ) {
-            console.log(data);
             setLoading(true);
             let Messages = await sendMessage('CreateMr', data, 'CreatedMr');
             setResponse(JSON.parse(Messages[0].Data));
@@ -196,6 +195,6 @@ const Edit: FC<EditProps> = (props) => {
     );
 };
 
-export const EditWithParams = processParams(Edit);
+export const EditWithParams = process2Params(Edit);
 
 export default Edit;

@@ -19,7 +19,7 @@ import { getArticle } from '../utils/article';
 import { Affix } from 'antd';
 import 'github-markdown-css';
 import "../utils/markdown-navbar/navbar.css";
-import processParams from '../utils/component';
+import process2Params from '../utils/component';
 import Header from '../components/Header';
 import { useVoerkaI18n } from '@voerkai18n/react';
 import Footer from '../components/Footer';
@@ -162,7 +162,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
     );
 };
 
-export const ArticleWithParams = processParams(Article);
+export const ArticleWithParams = process2Params(Article);
 
 
 export default Article;
