@@ -32,6 +32,8 @@ export const LANGS = [
     'vie',
 ];
 
+export const CHAR_LANGS = ['zh', 'ja']
+
 export const LANG_REGION_MAP = {
     en: 'en_US',
     fra: 'fr_FR',
