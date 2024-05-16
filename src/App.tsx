@@ -12,7 +12,8 @@ import CreateArticle from './pages/CreateArticle';
 import CreateLangVersion from './pages/CreateLangVersion';
 import {MrWithParams} from './pages/Mr';
 import Stake from './pages/Stake';
-import {MrChanges} from './pages/MrChanges';
+import MrChanges from './pages/MrChanges';
+import Statistics from './pages/Statistics';
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                     <Route path={'/:lang/createArticle'} element={<CreateArticle />} />
                     <Route path={'/:lang/createLangVersion'} element={<CreateLangVersion />} />
                     <Route path={'/:lang/stake'} element={<Stake />} />
+                    <Route path={'/:lang/statistics'} element={<Statistics />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </HashRouter>

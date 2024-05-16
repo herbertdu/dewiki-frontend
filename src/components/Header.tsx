@@ -31,6 +31,12 @@ const Header = () => {
             >
                 <div>{t('Stake')}</div>
             </Link>
+            <Link
+                to={`/${activeLanguage}/statistics`}
+                className="hover:text-indigo-color text-lg font-semibold  text-gray-600"
+            >
+                <div>{t('Statistics')}</div>
+            </Link>
         </>
     );
 

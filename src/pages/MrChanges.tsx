@@ -37,3 +37,5 @@ export const MrChanges: FC = () => {
     </>
   );
 };
+
+export default MrChanges;
