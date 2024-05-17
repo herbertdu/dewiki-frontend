@@ -12,7 +12,7 @@ import CreateArticle from './pages/CreateArticle';
 import CreateLangVersion from './pages/CreateLangVersion';
 import {MrWithParams} from './pages/Mr';
 import Stake from './pages/Stake';
-import MrChanges from './pages/MrChanges';
+import MrDetail from './pages/MrDetail';
 import Statistics from './pages/Statistics';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
                     <Route path={'/:lang/a/:id'} element={<ArticleWithParams />} />
                     <Route path={'/:lang/a/:id/edit'} element={<EditWithParams />} />
                     <Route path={'/:lang/a/:id/mr'} element={<MrWithParams />} />
-                    <Route path={'/:lang/a/:id/mr/:mrId'} element={<MrChanges />} />
+                    <Route path={'/:lang/a/:id/mr/:mrId'} element={<MrDetail />} />
                     <Route path={'/:lang/categories'} element={<CategoryPage />} />
                     <Route path={'/:lang/createArticle'} element={<CreateArticle />} />
                     <Route path={'/:lang/createLangVersion'} element={<CreateLangVersion />} />
