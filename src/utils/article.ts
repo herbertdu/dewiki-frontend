@@ -24,6 +24,13 @@ export interface MrData {
   guaranteedId: number;
 }
 
+export interface ArticleData {
+  title: string;
+  content: string;
+  latestMr: number;
+  meta: any;
+}
+
 const dmp = new diff_match_patch();
 dmp.Match_Threshold = 0.1;
 
@@ -40,17 +47,19 @@ function mergeMrs(langVersion: { mrs: { [x: string]: { changes: any } } }, artic
   return content;
 }
 
-export async function getArticle(articleId: number, lang: string): Promise<any> {
+export async function getArticle(articleId: number, lang: string): Promise<ArticleData> {
   const { Messages, Error } = await dryrun({
     process: DEWIKI_PROCESS,
     tags: [{ name: 'Action', value: 'GetLanguageVersion' }],
     data: JSON.stringify({ articleId: articleId, lang: lang }),
   });
-  let article = { title: '', content: '', latestMr: 0 };
+  let article = { title: '', content: '', latestMr: 0, meta: {} };
   if (isContainAction(Messages, 'ReceiveLanguageVersion')) {
-    let langVersion = JSON.parse(Messages[0].Data).versionData;
+    let data = JSON.parse(Messages[0].Data)
+    let langVersion = data.versionData;
     article.title = langVersion.title;
     article.content = mergeMrs(langVersion, article);
+    article.meta = data.meta;
   } else {
     alert('Error: ' + Error);
   }
