@@ -54,5 +54,14 @@ export default {
     "Are you sure to withdraw": 53,
     "stake or withdraw": 54,
     "DWK Quantity": 55,
-    "Withdraw": 56
+    "Withdraw": 56,
+    "Statistics": 57,
+    "show changes": 58,
+    "latest": 59,
+    "behind": 60,
+    "article": 61,
+    "view": 62,
+    "all mr": 63,
+    "token issue data": 64,
+    "DAO data": 65
 }

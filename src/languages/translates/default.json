@@ -449,5 +449,77 @@
         "$files": [
             "pages/Stake.tsx"
         ]
+    },
+    "Statistics": {
+        "zh": "统计",
+        "en": "Statistics",
+        "jp": "統計",
+        "$files": [
+            "components/Header.tsx"
+        ]
+    },
+    "show changes": {
+        "zh": "显示更改",
+        "en": "show changes",
+        "jp": "変更を表示",
+        "$files": [
+            "components/ListMr.tsx"
+        ]
+    },
+    "latest": {
+        "zh": "最新",
+        "en": "latest",
+        "jp": "最近の",
+        "$files": [
+            "pages/Article.tsx"
+        ]
+    },
+    "behind": {
+        "zh": "落后",
+        "en": "behind",
+        "jp": "の後ろに",
+        "$files": [
+            "pages/Article.tsx"
+        ]
+    },
+    "article": {
+        "zh": "条目",
+        "en": "article",
+        "jp": "文章",
+        "$files": [
+            "pages/MrDetail.tsx"
+        ]
+    },
+    "view": {
+        "zh": "浏览",
+        "en": "view",
+        "jp": "漫読する",
+        "$files": [
+            "pages/MrDetail.tsx"
+        ]
+    },
+    "all mr": {
+        "zh": "所有mr",
+        "en": "all mr",
+        "jp": "すべてのmr",
+        "$files": [
+            "pages/MrDetail.tsx"
+        ]
+    },
+    "token issue data": {
+        "zh": "代币分发数据",
+        "en": "token issue data",
+        "jp": "トークン発行データ",
+        "$files": [
+            "pages/Statistics.tsx"
+        ]
+    },
+    "DAO data": {
+        "zh": "DAO数据",
+        "en": "DAO data",
+        "jp": "DAOデータ",
+        "$files": [
+            "pages/Statistics.tsx"
+        ]
     }
 }
