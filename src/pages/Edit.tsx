@@ -192,7 +192,7 @@ const Edit: FC<EditProps> = (props) => {
       <Modal title="Edit Success" open={visible} onOk={handleOk} onCancel={handleOk}>
         <div className="text-lg text-gray-500 font-semibold text-center">MR Id: {response?.mrId}</div>
         <div className="text-lg text-gray-500 underline font-semibold text-center mb-10 capitalize">
-          <Link to={`/${props.lang}/a/${props.articleId}/mr`}>
+          <Link to={`/${props.lang}/a/${props.articleId}/mr/${response?.mrId}`}>
             <div>{t('view MR')}</div>
           </Link>
           <Link to={`/${props.lang}/a/${props.articleId}`}>
