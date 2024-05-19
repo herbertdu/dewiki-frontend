@@ -12,7 +12,7 @@ export const ListMr = ({
   lang,
   articleId,
   mrs,
-  defaultShow = false
+  defaultShow = false,
 }: {
   mrId: number;
   mr: MrData;
@@ -27,9 +27,20 @@ export const ListMr = ({
     <div className="border-b border-gray-200 py-4">
       <div className="flex justify-between items-center">
         <div>
+          {mr.title && (
+            <div className="text-lg font-semibold text-start">
+              <span>{t('article')}: </span>
+              <Link className=" text-gray-500 underline capitalize" to={`/${mr.lang}/a/${mr.articleId}`}>
+                <span>{mr.title}</span>
+              </Link>
+            </div>
+          )}
           <Link to={`/${lang}/a/${articleId}/mr/${mrId}`} className="text-lg text-gray-500 underline font-semibold">
             <div className="capitalize">MR Id: {mrId}</div>
           </Link>
+          <p className="space-x-3">
+            {t('language')}: {mr.lang}
+          </p>
           <p className="space-x-3">
             <span>
               {t('state')}: {mr.state}

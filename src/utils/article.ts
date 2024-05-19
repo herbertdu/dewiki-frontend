@@ -22,6 +22,11 @@ export interface MrData {
   createTimestamp: number;
   appeals: number[];
   guaranteedId: number;
+  // following add from frontend
+  articleId: number;
+  lang: string;
+  mrId: number;
+  title: string;
 }
 
 export interface ArticleData {
@@ -55,7 +60,7 @@ export async function getArticle(articleId: number, lang: string): Promise<Artic
   });
   let article = { title: '', content: '', latestMr: 0, meta: {} };
   if (isContainAction(Messages, 'ReceiveLanguageVersion')) {
-    let data = JSON.parse(Messages[0].Data)
+    let data = JSON.parse(Messages[0].Data);
     let langVersion = data.versionData;
     article.title = langVersion.title;
     article.content = mergeMrs(langVersion, article);

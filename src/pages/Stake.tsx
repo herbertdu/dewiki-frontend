@@ -137,53 +137,55 @@ const Stake = () => {
   return (
     <>
       <Header />
-      <div>DWK: {balance}</div>
-      <h1 className="text-start font-bold text-3xl mt-10 mb-5 md:first-letter:uppercase">{t('staked details')}:</h1>
-      {groups.length > 0 && (
-        <SimpleTreeView defaultExpandedItems={expandedItemIds}>
-          {groups
-            .filter((group) => group.info.father === 0)
-            .map((group, index) => (
-              <GroupDetails key={index} group={group} groups={groups} stakerId={address} />
-            ))}
-        </SimpleTreeView>
-      )}
+      <div className="max-w-7xl mx-auto p-4">
+        <div>DWK: {balance}</div>
+        <h1 className="text-start font-bold text-3xl mt-10 mb-5 md:first-letter:uppercase">{t('staked details')}:</h1>
+        {groups.length > 0 && (
+          <SimpleTreeView defaultExpandedItems={expandedItemIds}>
+            {groups
+              .filter((group) => group.info.father === 0)
+              .map((group, index) => (
+                <GroupDetails key={index} group={group} groups={groups} stakerId={address} />
+              ))}
+          </SimpleTreeView>
+        )}
 
-      <h1 className="text-start font-bold text-3xl mt-10 mb-5 md:first-letter:uppercase">{t('stake or withdraw')}</h1>
-      {groupOptions}
-      {languageOptions}
+        <h1 className="text-start font-bold text-3xl mt-10 mb-5 md:first-letter:uppercase">{t('stake or withdraw')}</h1>
+        {groupOptions}
+        {languageOptions}
 
-      <form noValidate autoComplete="off" className="mt-5">
-        <StyledTextField
-          label={t('DWK Quantity') + '*'}
-          variant="outlined"
-          id="custom-css-outlined-input"
-          sx={{ width: '17ch' }}
-          value={quantity}
-          onChange={handleQuantity}
-        />
-        <span> = {reverseDwk(quantity)} wei</span>
-      </form>
+        <form noValidate autoComplete="off" className="mt-5">
+          <StyledTextField
+            label={t('DWK Quantity') + '*'}
+            variant="outlined"
+            id="custom-css-outlined-input"
+            sx={{ width: '17ch' }}
+            value={quantity}
+            onChange={handleQuantity}
+          />
+          <span> = {reverseDwk(quantity)} wei</span>
+        </form>
 
-      <div className="flex justify-center">
-        <button
-          className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mt-4 mb-2 mr-4"
-          onClick={handleStake}
-          disabled={loading}
-        >
-          {loading ? `${t('Processing')}...` : `${t('Stake')}`}
-        </button>
-        <button
-          className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mt-4 mb-2"
-          onClick={handleWithdraw}
-          disabled={loading}
-        >
-          {loading ? `${t('Processing')}...` : `${t('Withdraw')}`}
-        </button>
+        <div className="flex justify-center">
+          <button
+            className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mt-4 mb-2 mr-4"
+            onClick={handleStake}
+            disabled={loading}
+          >
+            {loading ? `${t('Processing')}...` : `${t('Stake')}`}
+          </button>
+          <button
+            className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mt-4 mb-2"
+            onClick={handleWithdraw}
+            disabled={loading}
+          >
+            {loading ? `${t('Processing')}...` : `${t('Withdraw')}`}
+          </button>
+        </div>
+        <Modal title="Stake Success" open={visible} onOk={handleOk} onCancel={handleOk}>
+          {response && <div className="text-left text-sm whitespace-pre-wrap">{formatStakeInfo(response)}</div>}
+        </Modal>
       </div>
-      <Modal title="Stake Success" open={visible} onOk={handleOk} onCancel={handleOk}>
-        {response && <div className="text-left text-sm whitespace-pre-wrap">{formatStakeInfo(response)}</div>}
-      </Modal>
       <Footer />
     </>
   );
