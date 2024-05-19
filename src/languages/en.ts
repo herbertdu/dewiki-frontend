@@ -63,5 +63,9 @@ export default {
     "62": "view",
     "63": "all mr",
     "64": "token issue data",
-    "65": "DAO data"
+    "65": "DAO data",
+    "66": "dashboard",
+    "67": "language",
+    "68": "balance",
+    "69": "my mr"
 }

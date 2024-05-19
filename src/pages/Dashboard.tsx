@@ -36,7 +36,7 @@ export const Dashboard: FC = () => {
         </div>
       </div>
       <div className="max-w-7xl mx-auto p-4">
-        <h2 className="text-2xl font-medium text-black capitalize">{t('my mr:')}</h2>
+        <h2 className="text-2xl font-medium text-black capitalize">{t('my mr')}:</h2>
         {userData.userMrs &&
           [...userData.userMrs]
             .reverse()

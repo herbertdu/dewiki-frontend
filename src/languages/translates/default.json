@@ -521,5 +521,37 @@
         "$files": [
             "pages/Statistics.tsx"
         ]
+    },
+    "dashboard": {
+        "zh": "仪表盘",
+        "en": "dashboard",
+        "jp": "ダッシュボード",
+        "$files": [
+            "components/Header.tsx"
+        ]
+    },
+    "language": {
+        "zh": "语言",
+        "en": "language",
+        "jp": "言語",
+        "$files": [
+            "components/ListMr.tsx"
+        ]
+    },
+    "balance": {
+        "zh": "余额",
+        "en": "balance",
+        "jp": "差金",
+        "$files": [
+            "pages/Dashboard.tsx"
+        ]
+    },
+    "my mr": {
+        "zh": "我的mr",
+        "en": "my mr",
+        "jp": "私のmr",
+        "$files": [
+            "pages/Dashboard.tsx"
+        ]
     }
 }
