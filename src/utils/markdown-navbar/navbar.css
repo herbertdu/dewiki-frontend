@@ -1,14 +1,15 @@
 .markdown-navigation {
   font-size: 14px;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Helvetica", "Arial", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Helvetica', 'Arial', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
   width: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: 0;
-  width:200px
+  width: 200px;
 }
-.markdown-navigation::-webkit-scrollbar{
-  width:0;
+.markdown-navigation::-webkit-scrollbar {
+  width: 0;
 }
 
 .markdown-navigation .title-anchor {
@@ -38,39 +39,78 @@
 
 .markdown-navigation .title-level1 {
   color: #000;
-  font-size: 0.9em;
-  padding-left: 1em;
+  padding-left: 2.3em;
   font-weight: normal;
 }
 
 .markdown-navigation .title-level2 {
   color: #000;
-  font-size: 0.9em;
-  padding-left: 2em;
+  padding-left: 3.3em;
   font-weight: normal;
 }
 
 .markdown-navigation .title-level3 {
   color: #000;
-  font-size: 0.9em;
-  padding-left: 3em;
+  padding-left: 4.3em;
   font-weight: normal;
 }
 
 .markdown-navigation .title-level4 {
   color: #000;
-  font-size: 0.9em;
-  padding-left: 4em;
+  padding-left: 5.3em;
+  font-weight: normal;
 }
 
 .markdown-navigation .title-level5 {
   color: #000;
-  font-size: 0.9em;
-  padding-left: 5em;
+  padding-left: 6.3em;
+  font-weight: normal;
 }
 
 .markdown-navigation .title-level6 {
   color: #000;
-  font-size: 0.9em;
-  padding-left: 6em;
+  padding-left: 7.3em;
+  font-weight: normal;
+}
+
+.details-summary {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.arrow {
+  cursor: pointer;
+  margin-right: 0.2em;
+  transition: transform 0.2s ease-in-out;
+  position: absolute;
+  left: 0;
+}
+
+.arrow-level1 {
+  left: 1em;
+}
+
+.arrow-level2 {
+  left: 2em;
+}
+
+.arrow-level3 {
+  left: 3em;
+}
+
+.arrow-level4 {
+  left: 4em;
+}
+
+.arrow-level5 {
+  left: 5em;
+}
+
+.arrow-level6 {
+  left: 6em;
+}
+
+details:not([open]) > summary .arrow {
+  transform: rotate(-90deg); /* Collapsed arrow */
 }

@@ -342,48 +342,77 @@ export class MarkdownNavbar extends Component {
         }, 0);
     }
 
-    render() {
-      // getNavStructure()方法未获取到source
-      const { source } = this.props
-      const tBlocks = this.getNavStructure(source).map((t) => {
-        const cls = `title-anchor title-level${t.level} ${
-          this.state.currentListNo === t.listNo ? 'active' : ''
+  renderNavStructure(navItems) {
+    const renderItems = (items, level) => {
+      return items.map((item) => {
+        const subItems = navItems.filter((i) => i.listNo.startsWith(`${item.listNo}.`) && i.level === level + 1);
+        const hasSubItems = subItems.length > 0;
+        const cls = `title-anchor title-level${item.level} ${
+          this.state.currentListNo === item.listNo ? 'active' : ''
         }`;
-      
+        const arrowCls = `arrow arrow-level${item.level}`;
+
         return (
-          <div
-            className={cls}
+          <details key={item.listNo} open>
+            <summary className="details-summary">
+              {hasSubItems ? (
+                <span
+                  className={arrowCls}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Stop the event from bubbling up to summary
+                    e.preventDefault(); // Prevent default action of summary
+                    const parent = e.target.closest('details');
+                    if (parent) {
+                      parent.open = !parent.open;
+                    }
+                  }}
+                >
+                  ▼
+                </span>
+              ) : (
+                <span className={`${arrowCls} text-white`}>▼</span>
+              )}
+              <span
+                className={cls}
                 onClick={(evt) => {
-                const currentHash = this.props.declarative
-                    ? `${t.listNo}-${t.text}` // 加入listNo确保hash唯一ZZ
-                    : `heading-${t.index}`;
+                  evt.stopPropagation(); // Stop the event from bubbling up to summary
+                  evt.preventDefault(); // Prevent default action of summary
+                  const currentHash = this.props.declarative ? `${item.listNo}-${item.text}` : `heading-${item.index}`;
 
-                // Avoid execution the callback `onHashChange` when clicking current nav item
-                if (t.listNo !== this.state.currentListNo) {
-                    // Hash changing callback
+                  if (item.listNo !== this.state.currentListNo) {
                     this.props.onHashChange(currentHash, this.getCurrentHashValue());
-                }
+                  }
 
-                // Nav item clicking callback
-                this.props.onNavItemClick(evt, evt.target, currentHash);
+                  this.props.onNavItemClick(evt, evt.target, currentHash);
 
-                if (this.props.updateHashOnClick) {
+                  if (this.props.updateHashOnClick) {
                     this.updateHash(currentHash);
-                }
-                this.scrollToTarget(currentHash);
-                this.setState({
-                    currentListNo: t.listNo,
-                });
-            }}
-              key={`title_anchor_${Math.random().toString(36).substring(2)}`}>
-              {this.props.ordered ? <small>{t.listNo}</small> : null}
-              {t.text}
-        </div>);
-        });
+                  }
 
+                  this.scrollToTarget(currentHash);
+                  this.setState({
+                    currentListNo: item.listNo,
+                  });
+                }}
+              >
+                {this.props.ordered ? <small>{item.listNo}</small> : null} {item.text}
+              </span>
+            </summary>
+            {hasSubItems && <div>{renderItems(subItems, level + 1)}</div>}
+          </details>
+        );
+      });
+    };
+
+    return renderItems(navItems.filter((i) => i.level === 1), 1);
+  }
+
+    render() {
+      const { source } = this.props
+      const navStructure = this.getNavStructure(source)
         return (
             <div className={`markdown-navigation ${this.props.className}`}>
-                {tBlocks}
+                 {this.renderNavStructure(navStructure)}
             </div>
         );
     }
