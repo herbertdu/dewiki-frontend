@@ -387,7 +387,7 @@
         ]
     },
     "end translated block": {
-        "zh": "翻译结束时间",
+        "zh": "被翻译结束时间",
         "en": "end translated block",
         "jp": "翻译終了",
         "$files": [

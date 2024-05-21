@@ -62,7 +62,7 @@ export const ListMr = ({
               {t('translation progress')}: {mr.translationProgress}
             </span>
             <span>
-              {t('end translated block')}: {mr.endTranslatedHeight}
+              {t('end translated into english block')}: {mr.endTranslatedHeight}
             </span>
           </p>
           <p className="space-x-3">

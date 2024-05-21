@@ -13,6 +13,9 @@ import { createStyles, makeStyles } from '@mui/styles';
 import MarkdownNavbar from '../utils/markdown-navbar/index';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 import { getArticle, ArticleData } from '../utils/article';
 
@@ -157,7 +160,11 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
         </div>
         <Grid container justifyContent="center" alignItems="center">
           <Box width={markdownBoxWidth}>
-            <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]} className={'markdown-body'}>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[rehypeRaw, rehypeKatex]}
+              className={'markdown-body'}
+            >
               {article.content}
             </ReactMarkdown>
           </Box>

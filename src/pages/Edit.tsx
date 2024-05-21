@@ -64,7 +64,6 @@ const Edit: FC<EditProps> = (props) => {
 
   const handleOk = () => {
     setVisible(false);
-    setLoading(false);
   };
 
   const handleWordCount = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,8 +108,11 @@ const Edit: FC<EditProps> = (props) => {
     if (window.confirm(`${t('data is')}:\n${JSON.stringify(confirmData, null, 2)}\n\n${t('Are you sure to save')}?`)) {
       setLoading(true);
       let Messages = await sendMessage('CreateMr', data, 'CreatedMr');
-      setResponse(JSON.parse(Messages[0].Data));
-      setVisible(true);
+      if (Messages.length > 0 && Messages[0].Data) {
+        setResponse(JSON.parse(Messages[0].Data));
+        setVisible(true);
+      }
+      setLoading(false);
     }
   };
 
