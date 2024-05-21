@@ -16,6 +16,8 @@ import rehypeRaw from 'rehype-raw';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 import { getArticle, ArticleData } from '../utils/article';
 
@@ -98,6 +100,22 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
 
   let isLatest = article.meta.latest.includes(lang);
 
+  const codeRenderers = {
+    code({ node, inline, className, children, ...props }: any) {
+      const match = /language-(\w+)/.exec(className || '');
+
+      return !inline && match ? (
+        <SyntaxHighlighter style={dracula} PreTag="div" language={match[1]} {...props}>
+          {String(children).replace(/\n$/, '')}
+        </SyntaxHighlighter>
+      ) : (
+        <code className={className} {...props}>
+          {children}
+        </code>
+      );
+    },
+  };
+
   return (
     <div onClick={handleDrawerClick}>
       <Header />
@@ -164,6 +182,7 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
               remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[rehypeRaw, rehypeKatex]}
               className={'markdown-body'}
+              components={codeRenderers}
             >
               {article.content}
             </ReactMarkdown>
