@@ -386,14 +386,6 @@
             "pages/Mr.tsx"
         ]
     },
-    "end translated block": {
-        "zh": "被翻译结束时间",
-        "en": "end translated block",
-        "jp": "翻译終了",
-        "$files": [
-            "pages/Mr.tsx"
-        ]
-    },
     "appeals": {
         "zh": "上诉",
         "en": "appeals",
@@ -552,6 +544,14 @@
         "jp": "私のmr",
         "$files": [
             "pages/Dashboard.tsx"
+        ]
+    },
+    "translated into english deadline": {
+        "zh": "译英截止区块",
+        "en": "translated into english deadline",
+        "jp": "英訳の締め切り",
+        "$files": [
+            "components/ListMr.tsx"
         ]
     }
 }
