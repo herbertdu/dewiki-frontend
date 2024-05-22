@@ -10,8 +10,17 @@ interface MrShowDiffProps {
 }
 
 export const MrShowDiff: FC<MrShowDiffProps> = ({ mrId, mrs }) => {
-  const { activeLanguage } = useVoerkaI18n();
   let { oldContent, newContent } = getOldAndNewContent(mrId, mrs);
+  return <ShowDiff oldContent={oldContent} newContent={newContent} />;
+};
+
+interface ShowDiffProps {
+  oldContent: string;
+  newContent: string;
+}
+
+export const ShowDiff: FC<ShowDiffProps> = ({ oldContent, newContent }) => {
+  const { activeLanguage } = useVoerkaI18n();
   let compareMethod = DiffMethod.WORDS;
   if (CHAR_LANGS.includes(activeLanguage || 'en')) {
     compareMethod = DiffMethod.CHARS;

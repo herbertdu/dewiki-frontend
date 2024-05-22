@@ -17,6 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { TranslationProgress } from '../components/CustomMui';
+import { ShowDiff } from '../components/MrShowDiff';
 
 interface EditProps {
   articleId: number;
@@ -36,6 +37,7 @@ const Edit: FC<EditProps> = (props) => {
   const [translationProgress, setTranslationProgress] = useState('');
   const [editSummary, setEditSummary] = useState('');
   const [wordCount, setWordCount] = useState(0);
+  const [showDiff, setShowDiff] = useState(false);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -182,15 +184,23 @@ const Edit: FC<EditProps> = (props) => {
         />
       </form>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-4 mb-2">
         <button
-          className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mt-4 mb-2"
+          className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mr-2"
           onClick={handleSave}
           disabled={loading}
         >
           {loading ? `${t('Saving')}...` : `${t('Save')}`}
         </button>
+
+        <button onClick={() => setShowDiff(!showDiff)} className="bg-gray-200 px-4 py-2">
+          <div className="capitalize">
+            {t('show changes')} {showDiff ? '▲' : '▼'}
+          </div>
+        </button>
       </div>
+      {showDiff && <ShowDiff oldContent={article.content} newContent={vd?.getValue() || ''} />}
+
       <Modal title="Edit Success" open={visible} onOk={handleOk} onCancel={handleOk}>
         <div className="text-lg text-gray-500 font-semibold text-center">MR Id: {response?.mrId}</div>
         <div className="text-lg text-gray-500 underline font-semibold text-center mb-10 capitalize">
@@ -202,6 +212,7 @@ const Edit: FC<EditProps> = (props) => {
           </Link>
         </div>
       </Modal>
+
       <Footer />
     </div>
   );
