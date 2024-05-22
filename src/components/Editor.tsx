@@ -36,6 +36,7 @@ const Editor: FC<IVditorEditorProps> = ({ keyID, options, bindVditor, initialVal
       preview: {
         actions: ['desktop', 'tablet', 'mobile'],
       },
+      height: '95vh',
     });
   }, [activeLanguage]);
 

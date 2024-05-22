@@ -146,73 +146,73 @@ const Edit: FC<EditProps> = (props) => {
   return (
     <div>
       <Header />
-      <h1 className="text-center font-bold text-5xl mb-5 capitalize">{article.title}</h1>
+      <div className="max-w-7xl mx-auto p-1">
+        <h1 className="text-center font-bold text-5xl mb-5 capitalize">{article.title}</h1>
+        {article && <Editor keyID={editorId} bindVditor={setVd} initialValue={article.content} />}
 
-      {article && <Editor keyID={editorId} bindVditor={setVd} initialValue={article.content} />}
+        <form noValidate autoComplete="off" className="mt-5">
+          <StyledTextField
+            label={t('Valid Word Count') + '*'}
+            variant="outlined"
+            id="custom-css-outlined-input"
+            sx={{ width: '15ch' }}
+            value={wordCount}
+            onChange={handleWordCount}
+          />
+          <button type="button" className="bg-gray-200 px-4 py-1" onClick={handleAutoCount}>
+            {t('Auto Count')}
+          </button>
+        </form>
 
-      <form noValidate autoComplete="off" className="mt-5">
-        <StyledTextField
-          label={t('Valid Word Count') + '*'}
-          variant="outlined"
-          id="custom-css-outlined-input"
-          sx={{ width: '15ch' }}
-          value={wordCount}
-          onChange={handleWordCount}
-        />
-        <button type="button" className="bg-gray-200 px-4 py-1" onClick={handleAutoCount}>
-          {t('Auto Count')}
-        </button>
-      </form>
+        {editTypeOptions}
+        {editType === 'translate' && (
+          <TranslationProgress
+            translationProgress={translationProgress}
+            handleTranslationProgress={handleTranslationProgress}
+          />
+        )}
 
-      {editTypeOptions}
-      {editType === 'translate' && (
-        <TranslationProgress
-          translationProgress={translationProgress}
-          handleTranslationProgress={handleTranslationProgress}
-        />
-      )}
+        <form noValidate autoComplete="off">
+          <StyledTextField
+            label={t('Edit Summary')}
+            variant="outlined"
+            id="custom-css-outlined-input"
+            sx={{ width: '70%' }}
+            value={editSummary}
+            onChange={handleEditSummary}
+            multiline
+          />
+        </form>
 
-      <form noValidate autoComplete="off">
-        <StyledTextField
-          label={t('Edit Summary')}
-          variant="outlined"
-          id="custom-css-outlined-input"
-          sx={{ width: '70%' }}
-          value={editSummary}
-          onChange={handleEditSummary}
-          multiline
-        />
-      </form>
+        <div className="flex justify-center mt-4 mb-2">
+          <button
+            className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mr-2"
+            onClick={handleSave}
+            disabled={loading}
+          >
+            {loading ? `${t('Saving')}...` : `${t('Save')}`}
+          </button>
 
-      <div className="flex justify-center mt-4 mb-2">
-        <button
-          className="px-4 py-2 text-white bg-gradient-to-r from-violet-400 to-indigo-color mr-2"
-          onClick={handleSave}
-          disabled={loading}
-        >
-          {loading ? `${t('Saving')}...` : `${t('Save')}`}
-        </button>
-
-        <button onClick={() => setShowDiff(!showDiff)} className="bg-gray-200 px-4 py-2">
-          <div className="capitalize">
-            {t('show changes')} {showDiff ? '▲' : '▼'}
-          </div>
-        </button>
-      </div>
-      {showDiff && <ShowDiff oldContent={article.content} newContent={vd?.getValue() || ''} />}
-
-      <Modal title="Edit Success" open={visible} onOk={handleOk} onCancel={handleOk}>
-        <div className="text-lg text-gray-500 font-semibold text-center">MR Id: {response?.mrId}</div>
-        <div className="text-lg text-gray-500 underline font-semibold text-center mb-10 capitalize">
-          <Link to={`/${props.lang}/a/${props.articleId}/mr/${response?.mrId}`}>
-            <div>{t('view MR')}</div>
-          </Link>
-          <Link to={`/${props.lang}/a/${props.articleId}`}>
-            <div>{t('view article')}</div>
-          </Link>
+          <button onClick={() => setShowDiff(!showDiff)} className="bg-gray-200 px-4 py-2">
+            <div className="capitalize">
+              {t('show changes')} {showDiff ? '▲' : '▼'}
+            </div>
+          </button>
         </div>
-      </Modal>
+        {showDiff && <ShowDiff oldContent={article.content} newContent={vd?.getValue() || ''} />}
 
+        <Modal title="Edit Success" open={visible} onOk={handleOk} onCancel={handleOk}>
+          <div className="text-lg text-gray-500 font-semibold text-center">MR Id: {response?.mrId}</div>
+          <div className="text-lg text-gray-500 underline font-semibold text-center mb-10 capitalize">
+            <Link to={`/${props.lang}/a/${props.articleId}/mr/${response?.mrId}`}>
+              <div>{t('view MR')}</div>
+            </Link>
+            <Link to={`/${props.lang}/a/${props.articleId}`}>
+              <div>{t('view article')}</div>
+            </Link>
+          </div>
+        </Modal>
+      </div>
       <Footer />
     </div>
   );
