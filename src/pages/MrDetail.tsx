@@ -30,6 +30,7 @@ export const MrDetail: FC = () => {
 
     fetchMrs();
   }, [articleId, lang]);
+
   if (parseResult.includes(false)) {
     return <NotFound />;
   }

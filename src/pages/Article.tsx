@@ -16,7 +16,7 @@ import rehypeRaw from 'rehype-raw';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
-import './customKatex.css'
+import './customKatex.css';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
@@ -29,6 +29,8 @@ import process2Params from '../utils/component';
 import Header from '../components/Header';
 import { useVoerkaI18n } from '@voerkai18n/react';
 import Footer from '../components/Footer';
+import { Group, getGroups } from '../utils/dao';
+import { getCategories, Category } from '../utils/category';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -61,6 +63,8 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
   const [article, setArticle] = useState<ArticleData>();
   const [open, setOpen] = React.useState(false);
   const isMobile = useMediaQuery('(max-width:600px)');
+  const [groups, setGroups] = useState<Group[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const { t } = useVoerkaI18n();
 
@@ -86,13 +90,19 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
   };
 
   useEffect(() => {
-    const fetchArticle = async () => {
+    const fetch = async () => {
+      let categories = await getCategories();
+      setCategories(categories);
+
+      const feGroups = await getGroups();
+      setGroups(feGroups);
+
       let feArticle = await getArticle(articleId, lang);
       setArticle(feArticle);
       document.title = `${feArticle.title} | DeWiki`;
     };
 
-    fetchArticle();
+    fetch();
   }, [articleId, lang]);
 
   if (!article) {
@@ -156,20 +166,34 @@ const Article = ({ articleId, lang }: { articleId: number; lang: string }) => {
       </Affix>
       <main className={classes.main}>
         <h1 className="text-center font-bold text-5xl mb-5 capitalize">{article.title}</h1>
-        <div className="text-lg text-gray-500 underline font-semibold text-center">
-          <Link to={`/${lang}/a/${articleId}/edit`}>
-            <span className="mr-3">{t('edit')}</span>
+        <div className="text-sm text-gray-400 text-center">
+          <Link to={`/${lang}/a/${articleId}/edit`} className="underline text-gray-500">
+            <span>{t('edit')}</span>
           </Link>
-          <Link to={`/${lang}/a/${articleId}/mr`}>
+
+          <span className="ml-2 mr-2">|</span>
+          <Link to={`/${lang}/a/${articleId}/mr`} className="underline text-gray-500">
             <span>{t('history')}</span>
           </Link>
+
+          <span className="ml-2 mr-2">|</span>
+          <span>{t('DAO')} </span>
+          <Link to={`/${lang}/stake/${article.meta.group}/${lang}`} className="underline text-gray-500">
+            <span>{groups.length > 0 ? groups[article.meta.group - 1].info.name : article.meta.group}</span>
+          </Link>
+
+          <span className="ml-2 mr-2">|</span>
+          <span>{t('category')} </span>
+          <Link to={`/${lang}/categories/${article.meta.category}`} className="underline text-gray-500">
+            <span>{categories.length > 0 ? categories[article.meta.category - 1].names[lang]: article.meta.category}</span>
+          </Link>
         </div>
-        <div className="text-lg text-gray-500 font-semibold text-center mb-10">
+        <div className="text-sm text-gray-400 text-center mb-10">
           {t('state')}: {isLatest ? t('latest') : t('behind')}
           <span> [ </span>
           {article.meta.latest.map((lg: string) => (
             <>
-              <Link key={lg} to={`/${lg}/a/${articleId}`} className="underline">
+              <Link key={lg} to={`/${lg}/a/${articleId}`} className="underline text-gray-500">
                 {lg}
               </Link>
               <span> </span>

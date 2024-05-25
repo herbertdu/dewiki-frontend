@@ -27,9 +27,11 @@ function App() {
           <Route path={'/:lang/a/:id/mr'} element={<MrWithParams />} />
           <Route path={'/:lang/a/:id/mr/:mrId'} element={<MrDetail />} />
           <Route path={'/:lang/categories'} element={<CategoryPage />} />
+          <Route path={'/:lang/categories/:categoryId'} element={<CategoryPage />} />
           <Route path={'/:lang/createArticle'} element={<CreateArticle />} />
           <Route path={'/:lang/createLangVersion'} element={<CreateLangVersion />} />
           <Route path={'/:lang/stake'} element={<Stake />} />
+          <Route path={'/:lang/stake/:groupId/:daoLang'} element={<Stake />} />
           <Route path={'/:lang/statistics'} element={<Statistics />} />
           <Route path={'/:lang/dashboard'} element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />

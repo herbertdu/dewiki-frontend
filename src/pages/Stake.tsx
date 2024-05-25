@@ -1,35 +1,39 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getDwkBalance, reverseDwk, formatStakeInfo } from '../utils/fund';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { getGroupsAndStakeInfo, Staker, Dao, Group } from '../utils/dao';
+import { getGroupsAndStakeInfo, Group } from '../utils/dao';
 import { getAddr, sendMessage } from '../utils/message';
 import { LANGS } from '../constants/env';
 
-import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { useVoerkaI18n } from '@voerkai18n/react';
-import { GroupDetails } from '../components/Dao';
+import { DaoData } from '../components/Dao';
 
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
+import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import { Modal } from 'antd';
 import { checkWallet } from '../utils/wallet';
 import StyledTextField from '../components/Common';
 
+import { parseNumber } from '../utils/component';
+import { useParams } from 'react-router-dom';
+import { GroupOptions } from '../components/GroupOptions';
+
 const Stake = () => {
+  let { groupId, daoLang = '' } = useParams();
+  let parseResult: boolean[] = [];
+  let parseGroupId = parseNumber(groupId, parseResult);
+
   const { t } = useVoerkaI18n();
   const [balance, setBalance] = useState('');
   const [groups, setGroups] = useState<Group[]>([]);
   const [address, setAddress] = useState('');
-  const [expandedItemIds, setExpandedItemIds] = useState<string[]>([]);
 
-  const [group, setGroup] = useState('');
+  const [group, setGroup] = useState(parseGroupId.toString());
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
   const [response, setResponse] = useState(null);
-  const [language, setLanguage] = useState('');
+  const [language, setLanguage] = useState(daoLang);
   const [quantity, setQuantity] = useState('0');
 
   const handleLanguage = (event: SelectChangeEvent<string>) => {
@@ -70,9 +74,6 @@ const Stake = () => {
 
     const feGroups = await getGroupsAndStakeInfo(address);
     setGroups(feGroups);
-
-    let expanded = Array.from({ length: feGroups.length }, (_, i) => (i + 1).toString());
-    setExpandedItemIds(expanded);
   }
 
   const handleOk = () => {
@@ -94,25 +95,10 @@ const Stake = () => {
     setGroup(event.target.value);
   };
 
-  const groupOptions = (
-    <FormControl sx={{ width: '25ch', marginRight: '20px', marginBottom: '20px' }}>
-      <InputLabel id="demo-simple-select-label">{t('group') + '*'}</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={group}
-        label="group"
-        onChange={handleGroup}
-        error={group === ''}
-      >
-        {groups.map((group: any) => (
-          <MenuItem value={group.info.groupId.toString()} key={group.info.name}>
-            {`${group.info.groupId} - ${group.info.name}`}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-  );
+  let selectedDao = '';
+  if (parseGroupId !== 0 && daoLang !== '') {
+    selectedDao = `${parseGroupId}-${daoLang}`;
+  }
 
   const languageOptions = (
     <FormControl sx={{ width: '25ch', marginRight: '20px', marginBottom: '20px' }}>
@@ -138,20 +124,23 @@ const Stake = () => {
     <>
       <Header />
       <div className="max-w-7xl mx-auto p-4">
-        <div>DWK: {balance}</div>
-        <h1 className="text-start font-bold text-3xl mt-10 mb-5 md:first-letter:uppercase">{t('staked details')}:</h1>
-        {groups.length > 0 && (
-          <SimpleTreeView defaultExpandedItems={expandedItemIds}>
-            {groups
-              .filter((group) => group.info.father === 0)
-              .map((group, index) => (
-                <GroupDetails key={index} group={group} groups={groups} stakerId={address} />
-              ))}
-          </SimpleTreeView>
-        )}
+        <div className="w-full sm:w-1/2 p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4 mb-6">
+          <div className="flex-1 z-0 overflow-hidden">
+            <h2 className="text-xl font-medium text-black capitalize">{t('balance')}</h2>
+            <details open className="mt-4 text-gray-700" key="dashboard-balance">
+              <summary className="font-semibold bg-gray-200 rounded-md px-3 py-1">DWK</summary>
+              <span className="ml-6 text-sm">{balance}</span>
+            </details>
+          </div>
+        </div>
 
-        <h1 className="text-start font-bold text-3xl mt-10 mb-5 md:first-letter:uppercase">{t('stake or withdraw')}</h1>
-        {groupOptions}
+        <div className="flex flex-wrap">
+          <DaoData title={t('DAO data')} groups={groups} selectedDao={selectedDao} />
+          <DaoData title={t('my stakes')} groups={groups} selectedDao={selectedDao} stakerId={address} />
+        </div>
+
+        <h1 className="text-start font-bold text-3xl mt-10 mb-5 capitalize">{t('stake or withdraw')}</h1>
+        <GroupOptions group={group} handleGroup={handleGroup} groups={groups} />
         {languageOptions}
 
         <form noValidate autoComplete="off" className="mt-5">

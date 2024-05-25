@@ -37,6 +37,7 @@ const Editor: FC<IVditorEditorProps> = ({ keyID, options, bindVditor, initialVal
         actions: ['desktop', 'tablet', 'mobile'],
       },
       height: '95vh',
+      typewriterMode: true,
     });
   }, [activeLanguage]);
 
